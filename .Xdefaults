@@ -1,0 +1,66 @@
+! -- Xterm settings -- !
+xterm*font:         -*-tamsyn-medium-r-*-*-14-*-*-*-*-*-*-*
+xterm*boldFont:     -*-tamsyn-bold-r-*-*-14-*-*-*-*-*-*-*
+xterm*utf8:         2
+xterm*toolBar:      false
+xterm*scrollBar:    false
+xterm*rightScrollBar: false
+xterm*background:   #000000
+xterm*foreground:   #FFFFFF
+xterm*geometry:     90x40
+xterm*saveLines:    2000
+*VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
+                        <Key>Next: scroll-forw(1,page) \n \
+                        Shift<Key>Up: scroll-back(1,line) \n \
+                        Shift<Key>Down: scroll-forw(1,line) \n
+
+! -- Colors -- !
+#include "/home/anthony/code/scripts/dark"
+
+
+! -- Xcalc settings -- !
+xcalc*geometry:                        200x275
+xcalc.ti.bevel.background:             #222222
+xcalc.ti.bevel.screen.background:      #000000
+xcalc.ti.bevel.screen.DEG.background:  #000000
+xcalc.ti.bevel.screen.DEG.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.GRAD.background: #000000
+xcalc.ti.bevel.screen.GRAD.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.RAD.background:  #000000
+xcalc.ti.bevel.screen.RAD.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.INV.background:  #000000
+xcalc.ti.bevel.screen.INV.foreground:  Red
+xcalc.ti.bevel.screen.LCD.background:  #000000
+xcalc.ti.bevel.screen.LCD.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.LCD.shadowWidth: 0
+xcalc.ti.bevel.screen.M.background:    #000000
+xcalc.ti.bevel.screen.M.foreground:    LightSeaGreen
+xcalc.ti.bevel.screen.P.background:    #000000
+xcalc.ti.bevel.screen.P.foreground:    Yellow
+xcalc.ti.Command.foreground:  White
+xcalc.ti.Command.background:  #777777
+xcalc.ti.button3.label:       SQRT
+xcalc.ti.button5.background:  Orange3
+xcalc.ti.button19.background: #611161
+xcalc.ti.button18.background: #611161
+xcalc.ti.button20.background: #611111
+xcalc.ti.button20.label:      /
+xcalc.ti.button25.background: #722222
+xcalc.ti.button30.background: #833333
+xcalc.ti.button35.background: #944444
+xcalc.ti.button40.background: #a55555
+xcalc.ti.button22.background: #222262
+xcalc.ti.button23.background: #222262
+xcalc.ti.button24.background: #222272
+xcalc.ti.button27.background: #333373
+xcalc.ti.button28.background: #333373
+xcalc.ti.button29.background: #333373
+xcalc.ti.button32.background: #444484
+xcalc.ti.button33.background: #444484
+xcalc.ti.button34.background: #444484
+xcalc.ti.button37.background: #555595
+xcalc.ti.button38.background: #555595
+xcalc.ti.button39.background: #555595
+XCalc*background:	      #111111
+XCalc*Cursor:                 hand2
+XCalc*ShapeStyle:             rectangle
