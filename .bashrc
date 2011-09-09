@@ -43,3 +43,9 @@ alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 
 complete -cf sudo
 complete -cf man
+
+
+# Java Stuff
+#export CLASSPATH=${CLASSPATH}:/usr/share/java/jogl/jogl.jar
+#export CLASSPATH=${CLASSPATH}:/usr/share/java/jogl/gluegen-rt.jar
+#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/jogl/jogl-1.1.1-rc6/lib
