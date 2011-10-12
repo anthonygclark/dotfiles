@@ -4,33 +4,34 @@
 set background=dark
 set t_Co=256
 let g:colors_name="256-jungle"
+let bg=245
 
 let python_highlight_all = 1
 let c_gnu = 1
 
 
-hi Normal	    ctermfg=253         ctermbg=234         cterm=None
+hi Normal	      ctermfg=253         ctermbg=234         cterm=None
 hi Cursor       ctermfg=253         ctermbg=57          cterm=None
-hi SpecialKey	ctermfg=70          ctermbg=None        cterm=None
-hi Directory	ctermfg=57          ctermbg=254         cterm=None
+hi SpecialKey	  ctermfg=70          ctermbg=None        cterm=None
+hi Directory	  ctermfg=57          ctermbg=254         cterm=None
 hi ErrorMsg     ctermfg=160         ctermbg=245         cterm=None
 hi PreProc	    ctermfg=243         ctermbg=None        cterm=Bold
-hi Search	    ctermfg=125         ctermbg=None        cterm=Bold
-hi Type		    ctermfg=166         ctermbg=None        cterm=Bold
-hi Statement	ctermfg=172         ctermbg=None        cterm=Bold
+hi Search	      ctermfg=125         ctermbg=None        cterm=Bold
+hi Type		      ctermfg=166         ctermbg=None        cterm=Bold
+hi Statement	  ctermfg=172         ctermbg=None        cterm=Bold
 hi Comment	    ctermfg=240         ctermbg=None        cterm=None
-hi LineNr	    ctermfg=244         ctermbg=233         cterm=None
+hi LineNr	      ctermfg=244         ctermbg=233         cterm=None
 hi NonText	    ctermfg=105         ctermbg=None        cterm=Bold
 hi DiffText	    ctermfg=165         ctermbg=244         cterm=None
 hi Constant	    ctermfg=76          ctermbg=None        cterm=None
 hi Todo         ctermfg=162         ctermbg=None        cterm=Bold
-hi Identifier	ctermfg=142         ctermbg=None        cterm=Bold
-hi Error	    ctermfg=None        ctermbg=196         cterm=Bold
+hi Identifier	  ctermfg=142         ctermbg=None        cterm=Bold
+hi Error	      ctermfg=None        ctermbg=196         cterm=Bold
 hi Special	    ctermfg=172         ctermbg=None        cterm=Bold
 hi Ignore       ctermfg=221         ctermbg=None        cterm=Bold
 hi Underline    ctermfg=147         ctermbg=None        cterm=Italic
 
-hi FoldColumn	ctermfg=132         ctermbg=None        cterm=None
+hi FoldColumn	  ctermfg=132         ctermbg=None        cterm=None
 hi Folded       ctermfg=132         ctermbg=None        cterm=Bold
 
 hi Visual       ctermfg=248         ctermbg=238         cterm=None

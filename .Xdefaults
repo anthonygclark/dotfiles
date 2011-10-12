@@ -9,14 +9,13 @@ xterm*background:   #000000
 xterm*foreground:   #FFFFFF
 xterm*geometry:     90x40
 xterm*saveLines:    2000
-*VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
-                        <Key>Next: scroll-forw(1,page) \n \
-                        Shift<Key>Up: scroll-back(1,line) \n \
-                        Shift<Key>Down: scroll-forw(1,line) \n
+!-- *VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
+!                        <Key>Next: scroll-forw(1,page) \n \
+!                        Shift<Key>Up: scroll-back(1,line) \n \
+!--                        Shift<Key>Down: scroll-forw(1,line) \n
 
 ! -- Colors -- !
 #include "/home/anthony/code/scripts/dark"
-
 
 ! -- Xcalc settings -- !
 xcalc*geometry:                        200x275
@@ -64,3 +63,40 @@ xcalc.ti.button39.background: #555595
 XCalc*background:	      #111111
 XCalc*Cursor:                 hand2
 XCalc*ShapeStyle:             rectangle
+
+
+! URxvt settings
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0000/cccc
+urxvt*foreground: #ffffff
+urxvt*termName: rxvt-256color
+urxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+urxvt*saveLines: 32767
+urxvt*scrollBar: false
+urxvt*buffered: true
+urxvt*dynamicColors: on
+urxvt*perl-ext: default,url-select
+urxvt*keysym.M-u: perl:url-select:select_next
+urxvt*urlLauncher: firefox
+urxvt*underlineURLS: true
+!urxvt*background:black
+!urxvt*foreground:white
+!!urxvt*loginShell:true
+!urxvt*transpscrollbar:true
+!urxvt*scrollBar_right:true
+!urxvt*scrollBar:true
+!urxvt*saveLines:32767
+!urxvt.cursorBlink:true
+!urxvt*title: Terminal
+!urxvt*termName:rxvt-256color
+!urxvt*scrollTtyKeypress:true
+!urxvt*scrollTtyOutput:false
+!urxvt*scrollWithBuffer:false
+!!urxvt*urlLauncher:chromium
+!!urxvt*matcher.button:1
+!urxvt.scrollstyle:plain
+!!urxvt.secondaryScroll:true
+!!urxvt*font: xft:Fixed:pixelsize=11:antialias=true:hinting=true
+!!urxvt*boldFont: xft:Fixed:pixelsize=11:antialias=true:autohint=true:hinting=true
+!!urxvt*italicFont: xft:Fixed:pixelsize=11:antialias=true:italic:autohint=true:hinting=true
+!!urxvt*bolditalicFont: xft:Fixed:pixelsize=11: antialias=true:bold:italic:autohint=true:hinting=true

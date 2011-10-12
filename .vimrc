@@ -95,6 +95,11 @@ map <C-a> :tabnext<CR>
 nmap .tp :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
 
+" Folding, highlight text and press space to fold / unfold
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+vnoremap <Space> zf
+
+
 " Clipboard
 set clipboard+=unnamed  " yank and copy to X clipboard
 

@@ -41,6 +41,12 @@ alias lm="ls -al |more"     # pipe through 'more'
 alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 
+
+# Shortcuts
+#################
+alias open="xdg-open"	# like OSX, open the default application
+
+
 complete -cf sudo
 complete -cf man
 
