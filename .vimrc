@@ -1,3 +1,7 @@
+" don't accomodate vi
+set nocompatible
+
+set t_Co=256
 set backup
 
 " These directories must exist.
@@ -13,9 +17,10 @@ if has('syntax')
   nmap .SS :syn sync fromstart
 endif
 
+
+
 " Spell check
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>
-
 
 "Search Options
 set hlsearch
@@ -47,8 +52,12 @@ nmap <silent> .F :set foldenable!<CR>
 set number 
 map <silent> .N :set number!<CR>
 
-" Appearance
-colorscheme 256-jungle
+
+if has('gui_running') 
+  colorscheme dotshare
+else
+  colorscheme ac
+endif
 
 " Spelling options (and a shortcut to disable it)
 set spelllang=en
@@ -99,9 +108,43 @@ nmap .tt :Te .<CR><CR>
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 vnoremap <Space> zf
 
-
 " Clipboard
 set clipboard+=unnamed  " yank and copy to X clipboard
 
 " Allows writing to files with root priviledges
 cmap w!! w !sudo tee % >/dev/null
+
+" Printing
+command! -nargs=* Hardcopy call DoMyPrint('<args>')
+function DoMyPrint(args)
+  let colorsave=g:colors_name
+  color darkspectrum
+  exec 'hardcopy '.a:args
+  exec 'color '.colorsave
+endfunction
+
+" Custom Status line
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\ 
+set laststatus=2
+set cmdheight=1
+
+" whichwrap -- left/right keys can traverse up/down
+set ww=b,s,h,l,<,>,[,]
+
+" enhanced tab-completion shows all matching cmds in a popup menu
+set wildmenu
+
+
+" Highlight the text after 80 column mark
+" This needs to be togglable.
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+nnoremap <silent> <F5>
+      \ :if exists('w:long_line_match') <Bar>
+      \   silent! call matchdelete(w:long_line_match) <Bar>
+      \   unlet w:long_line_match <Bar>
+      \ elseif &textwidth > 0 <Bar>
+      \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
+      \ else <Bar>
+      \   let w:long_line_match = matchadd('ErrorMsg', '\%>81v.\+', -1) <Bar>
+      \ endif<CR>

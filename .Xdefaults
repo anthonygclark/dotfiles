@@ -9,10 +9,10 @@ xterm*background:   #000000
 xterm*foreground:   #FFFFFF
 xterm*geometry:     90x40
 xterm*saveLines:    2000
-!-- *VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
-!                        <Key>Next: scroll-forw(1,page) \n \
-!                        Shift<Key>Up: scroll-back(1,line) \n \
-!--                        Shift<Key>Down: scroll-forw(1,line) \n
+*VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
+                        <Key>Next: scroll-forw(1,page) \n \
+                        Shift<Key>Up: scroll-back(1,line) \n \
+                        Shift<Key>Down: scroll-forw(1,line) \n
 
 ! -- Colors -- !
 #include "/home/anthony/code/scripts/dark"
@@ -70,7 +70,8 @@ urxvt*depth: 32
 urxvt*background: rgba:0000/0000/0000/cccc
 urxvt*foreground: #ffffff
 urxvt*termName: rxvt-256color
-urxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+urxvt*font: -*-tamsyn-medium-r-*-*-14-*-*-*-*-*-*-*
+!urxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
 urxvt*saveLines: 32767
 urxvt*scrollBar: false
 urxvt*buffered: true
