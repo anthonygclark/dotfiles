@@ -1,103 +1,78 @@
-! -- Xterm settings -- !
-xterm*font:         -*-tamsyn-medium-r-*-*-14-*-*-*-*-*-*-*
-xterm*boldFont:     -*-tamsyn-bold-r-*-*-14-*-*-*-*-*-*-*
-xterm*utf8:         2
-xterm*toolBar:      false
-xterm*scrollBar:    false
-xterm*rightScrollBar: false
-xterm*background:   #000000
-xterm*foreground:   #FFFFFF
-xterm*geometry:     90x40
-xterm*saveLines:    2000
-*VT100.Translations:	#override <Key>Prior: scroll-back(1,page) \n\
-                        <Key>Next: scroll-forw(1,page) \n \
-                        Shift<Key>Up: scroll-back(1,line) \n \
-                        Shift<Key>Down: scroll-forw(1,line) \n
+*foreground: #DDDDDD
+*background: #151515
 
-! -- Colors -- !
-#include "/home/anthony/code/scripts/dark"
+!black
+*color0: #393939
+*color8: #474747
 
-! -- Xcalc settings -- !
-xcalc*geometry:                        200x275
-xcalc.ti.bevel.background:             #222222
-xcalc.ti.bevel.screen.background:      #000000
-xcalc.ti.bevel.screen.DEG.background:  #000000
-xcalc.ti.bevel.screen.DEG.foreground:  LightSeaGreen
-xcalc.ti.bevel.screen.GRAD.background: #000000
-xcalc.ti.bevel.screen.GRAD.foreground: LightSeaGreen
-xcalc.ti.bevel.screen.RAD.background:  #000000
-xcalc.ti.bevel.screen.RAD.foreground:  LightSeaGreen
-xcalc.ti.bevel.screen.INV.background:  #000000
-xcalc.ti.bevel.screen.INV.foreground:  Red
-xcalc.ti.bevel.screen.LCD.background:  #000000
-xcalc.ti.bevel.screen.LCD.foreground:  LightSeaGreen
-xcalc.ti.bevel.screen.LCD.shadowWidth: 0
-xcalc.ti.bevel.screen.M.background:    #000000
-xcalc.ti.bevel.screen.M.foreground:    LightSeaGreen
-xcalc.ti.bevel.screen.P.background:    #000000
-xcalc.ti.bevel.screen.P.foreground:    Yellow
-xcalc.ti.Command.foreground:  White
-xcalc.ti.Command.background:  #777777
-xcalc.ti.button3.label:       SQRT
-xcalc.ti.button5.background:  Orange3
-xcalc.ti.button19.background: #611161
-xcalc.ti.button18.background: #611161
-xcalc.ti.button20.background: #611111
-xcalc.ti.button20.label:      /
-xcalc.ti.button25.background: #722222
-xcalc.ti.button30.background: #833333
-xcalc.ti.button35.background: #944444
-xcalc.ti.button40.background: #a55555
-xcalc.ti.button22.background: #222262
-xcalc.ti.button23.background: #222262
-xcalc.ti.button24.background: #222272
-xcalc.ti.button27.background: #333373
-xcalc.ti.button28.background: #333373
-xcalc.ti.button29.background: #333373
-xcalc.ti.button32.background: #444484
-xcalc.ti.button33.background: #444484
-xcalc.ti.button34.background: #444484
-xcalc.ti.button37.background: #555595
-xcalc.ti.button38.background: #555595
-xcalc.ti.button39.background: #555595
-XCalc*background:	      #111111
-XCalc*Cursor:                 hand2
-XCalc*ShapeStyle:             rectangle
+!red
+*color1: #da4939
+*color9: #ff6c5c
 
+!green
+*color2: #519f50
+*color10: #a5c261
 
-! URxvt settings
-urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0000/cccc
-urxvt*foreground: #ffffff
-urxvt*termName: rxvt-256color
-urxvt*font: -*-tamsyn-medium-r-*-*-14-*-*-*-*-*-*-*
-!urxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
-urxvt*saveLines: 32767
-urxvt*scrollBar: false
-urxvt*buffered: true
-urxvt*dynamicColors: on
-urxvt*perl-ext: default,url-select
-urxvt*keysym.M-u: perl:url-select:select_next
-urxvt*urlLauncher: firefox
-urxvt*underlineURLS: true
-!urxvt*background:black
-!urxvt*foreground:white
-!!urxvt*loginShell:true
-!urxvt*transpscrollbar:true
-!urxvt*scrollBar_right:true
-!urxvt*scrollBar:true
-!urxvt*saveLines:32767
-!urxvt.cursorBlink:true
-!urxvt*title: Terminal
-!urxvt*termName:rxvt-256color
-!urxvt*scrollTtyKeypress:true
-!urxvt*scrollTtyOutput:false
-!urxvt*scrollWithBuffer:false
-!!urxvt*urlLauncher:chromium
-!!urxvt*matcher.button:1
-!urxvt.scrollstyle:plain
-!!urxvt.secondaryScroll:true
-!!urxvt*font: xft:Fixed:pixelsize=11:antialias=true:hinting=true
-!!urxvt*boldFont: xft:Fixed:pixelsize=11:antialias=true:autohint=true:hinting=true
-!!urxvt*italicFont: xft:Fixed:pixelsize=11:antialias=true:italic:autohint=true:hinting=true
-!!urxvt*bolditalicFont: xft:Fixed:pixelsize=11: antialias=true:bold:italic:autohint=true:hinting=true
+!yellow
+*color3: #cc7833
+*color11: #bc9458
+
+!blue
+*color4: #6d9cbe
+*color12: #6d9cbe
+!*color12: #d0d0ff
+
+!magenta
+*color5: #9f5079
+*color13: #a761c2
+
+!cyan
+*color6: #435d75
+*color14: #6e98a4
+
+!white
+*color7: #dddddd
+*color15: #dddddd
+
+! -------------------------- URxvt-specific stuff
+URxvt*borderColor: #151515
+URxvt*colorBD: #ffffff
+URxvt*colorIT: #a761c2
+URxvt*colorUL: #6d9cbe
+URxvt*underlineColor: #333333
+
+URxvt*highlightColor: #a761c2
+URxvt*highlightTextColor: #151515
+
+URxvt*cursorColor: #ff8939
+URxvt*cursorColor2: #151515
+
+URxvt*font: xft:dina:pixelsize=10:antialias=true:hinting:true
+URxvt*boldFont: xft:dina:bold:pixelsize=10:antialias=true:hinting:true
+
+URxvt*cursorBlink: true
+URxvt*cursorUnderline: false
+
+URxvt*geometry: 75x15
+URxvt*internalBorder: 3
+
+URxvt*depth: 24
+
+URxvt*scrollBar: true
+URxvt*scrollBar_right: true
+URxvt*scrollstyle: plain
+URxvt*scrollColor: #2873a2
+URxvt*scrollWithBuffer: false
+URxvt*scrollTtyOutput: true
+
+URxvt*urgentOnBell: true
+
+URxvt*pointerBlank: true
+
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.dpi: 96
+Xft.rgba: rgb
