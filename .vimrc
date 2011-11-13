@@ -17,7 +17,7 @@ set hlsearch                          " Highlighted search enabled by default
 set incsearch                         " Search options
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
-set mouse=nv                          " Mouse
+set mouse=nvi                         " Mouse
 set foldenable                        " Enable folding
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
@@ -45,9 +45,9 @@ endif
 
 " Chose colorscheme if in gvim
 if has('gui_running') 
-  colorscheme dotshare
-else
   colorscheme ac
+else
+  colorscheme ac-console
 endif
 
 " Misc key bindings
