@@ -17,7 +17,8 @@ set hlsearch                          " Highlighted search enabled by default
 set incsearch                         " Search options
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
-set mouse=nvi                         " Mouse
+set mouse=a                           " Mouse
+set ttymouse=urxvt                    " urxvt mouse stuff
 set foldenable                        " Enable folding
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
@@ -44,11 +45,15 @@ if has('syntax')
 endif
 
 " Chose colorscheme if in gvim
-if has('gui_running') 
-  colorscheme ac
+if has('gui_running')
+  "set guioptions-=M
+  set go-=T
+  "set go-=r
+  "set go-=m
 else
-  colorscheme ac-console
 endif
+
+colorscheme ac
 
 " Misc key bindings
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
@@ -75,7 +80,7 @@ map <leader>pp :r!xsel -b<CR><CR>
 " Tabbing
 nmap .tn :tabnext<CR>
 map <C-a> :tabnext<CR>
-nmap .tp :tabprevious<CR>
+map .tp :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
 
 " Folding, highlight text and press space to fold / unfold
