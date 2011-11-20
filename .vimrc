@@ -1,24 +1,25 @@
-"
+"------~------~
 " Anthony Clark
-" vimrc, taken from Sam B.'s 
-" vim minimal config and added 
-" features as needed. Still a 
-" wip/
+"------~------~
+" 
+" My evergrowing vimrc.
+" Most of this taken from Sam B.
+" and his vimrc minimal.
+" https://github.com/samba/dotfiles/tree/master/vim
 "
-
-
+"
 set nocompatible                      " Do not accomodate vi
+set term=$TERM                        " Give vim your term settings
 set t_Co=256                          " Assure 256 color
 "set backup                            " Sets backup
 "set backupdir=$HOME/.vim/backup       " Backup files location
 "set directory=$HOME/.vim/swap         " Swap files location
-set tags=./tags,$HOME/.vim/tags       " You probably want to add more to these later.
+set tags=./tars,$HOME/.vim/tags       " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
 set incsearch                         " Search options
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
 set mouse=a                           " Mouse
-set ttymouse=urxvt                    " urxvt mouse stuff
 set foldenable                        " Enable folding
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
@@ -34,8 +35,9 @@ set wildmenu                          " Enhanced tab-completion shows all matchi
 set backspace=indent,eol,start        " Backspace
 set stal=2                            " Show tab line
 
+
 " Status Bar
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\ 
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\
 
 " Enable Sync
 if has('syntax')
@@ -44,18 +46,29 @@ if has('syntax')
   nmap .SS :syn sync fromstart
 endif
 
-" Chose colorscheme if in gvim
+" GUI Specific options
 if has('gui_running')
-  "set guioptions-=M
-  set go-=T
-  "set go-=r
-  "set go-=m
+  set go-=T                           " disable toolbar
+  "set go-=r                           " disable right scrollbar
+  "set go-=m                           " disable menu bar
 else
 endif
 
+" Set the color scheme
 colorscheme ac
 
-" Misc key bindings
+
+" More mouse stuff
+if &term == "rxvt-unicode-256color"
+  set ttymouse=urxvt
+else
+  if &term == "xterm"
+    set ttymouse=xterm2
+  endif
+endif
+
+
+" Mic key bindings
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -84,7 +97,7 @@ map .tp :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
 
 " Folding, highlight text and press space to fold / unfold
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 " Write file as ROOT
