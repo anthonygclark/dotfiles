@@ -1,7 +1,7 @@
+# ------~------~
+# Anthony Clark
+# ------~------~
 #
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -23,9 +23,13 @@ set_prompt_style () {
 
 set_prompt_style
 
+# Various globals
 export WINEARCH=win32
 export EDITOR="vim"
+
+# Additions to PATH
 #PATH=/home/anthony/code/scripts:$PATH
+
 
 #The 'ls' family (in all it's glory)
 ####################################
@@ -41,17 +45,16 @@ alias lm="ls -al |more"     # pipe through 'more'
 alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 
+#Git Shortcuts (these are ugly)
+##################################
+alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"   # very pretty git log
 
-# Shortcuts
+
+
+# misc Shortcuts
 #################
 alias open="xdg-open"	# like OSX, open the default application
 
-
+# Tab Complete
 complete -cf sudo
 complete -cf man
-
-
-# Java Stuff
-#export CLASSPATH=${CLASSPATH}:/usr/share/java/jogl/jogl.jar
-#export CLASSPATH=${CLASSPATH}:/usr/share/java/jogl/gluegen-rt.jar
-#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/jogl/jogl-1.1.1-rc6/lib

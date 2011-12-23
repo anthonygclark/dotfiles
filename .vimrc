@@ -24,20 +24,20 @@ set foldenable                        " Enable folding
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
 set splitbelow splitright             " Put new windows below and right by default
-set autoindent smartindent            " Toggle Auto-indent
+set autoindent smartindent            " Toggle Auto-indent and Smart-indent.
 set tabstop=2 shiftwidth=2 expandtab  " Spaces for tabs, indentation, and avoid real tabs
 set nowrap                            " No wrapping of lines
 set clipboard+=unnamed                " Yank and copy to X clipboard (maybe)
 set laststatus=2                      " Always show the status line
 set cmdheight=1                       " Height of command line
 set ww=b,s,h,l,<,>,[,]                " Whichwrap -- left/right keys can traverse up/down
-set wildmenu                          " Enhanced tab-completion shows all matching cmds in a popup menu
+set wildmenu                          " Enhanced tab-completion shows all matching cmds n a popup menu
 set backspace=indent,eol,start        " Backspace
 set stal=2                            " Show tab line
-
+set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 
 " Status Bar
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]
 
 " Enable Sync
 if has('syntax')
@@ -57,7 +57,6 @@ endif
 " Set the color scheme
 colorscheme ac
 
-
 " More mouse stuff
 if &term == "rxvt-unicode-256color"
   set ttymouse=urxvt
@@ -66,7 +65,6 @@ else
     set ttymouse=xterm2
   endif
 endif
-
 
 " Mic key bindings
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
@@ -86,6 +84,8 @@ nmap .I :set autoindent!<CR>
 nmap .T :set expandtab!<CR>
 
 " X11 clipboard access
+" ,pp to paste
+" ,cc to copy
 let mapleader = ","
 map <leader>cc :w !xsel -i -b<CR><CR>
 map <leader>pp :r!xsel -b<CR><CR>
@@ -118,7 +118,7 @@ nnoremap <silent> <F5>
 command! -nargs=* Hardcopy call DoMyPrint('<args>')
 function DoMyPrint(args)
   let colorsave=g:colors_name
-  color ac
+  color ac "<---- custom colors here
   exec 'hardcopy '.a:args
   exec 'color '.colorsave
 endfunction
