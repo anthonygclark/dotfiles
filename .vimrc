@@ -36,8 +36,22 @@ set backspace=indent,eol,start        " Backspace
 set stal=2                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 
+set printheader=-%N-\ %t              " Sets print header to `-Page- title`
+set printoptions+=number:y            " Prints numbers
+set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
+
+"This is for setting Makefiles and Python with tabs not spaces
+autocmd FileType make setlocal noexpandtab
+autocmd FileType python setlocal noexpandtab
+
+"Save folds and apparently everything else
+"au BufWinLeave * silent! mkview
+"au BufWinEnter * silent! loadview
+
+
 " Status Bar
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]
+
 
 " Enable Sync
 if has('syntax')
@@ -49,9 +63,7 @@ endif
 " GUI Specific options
 if has('gui_running')
   set go-=T                           " disable toolbar
-  "set go-=r                           " disable right scrollbar
-  "set go-=m                           " disable menu bar
-else
+  set go-=r                           " disable right scrollbar
 endif
 
 " Set the color scheme
@@ -83,7 +95,7 @@ nmap .C :set invacd<CR>
 nmap .I :set autoindent!<CR>
 nmap .T :set expandtab!<CR>
 
-" X11 clipboard access
+" X11 clipboard access, There must be a better way...
 " ,pp to paste
 " ,cc to copy
 let mapleader = ","
@@ -94,6 +106,7 @@ map <leader>pp :r!xsel -b<CR><CR>
 nmap .tn :tabnext<CR>
 map <C-a> :tabnext<CR>
 map .tp :tabprevious<CR>
+map <C-z> :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
 
 " Folding, highlight text and press space to fold / unfold

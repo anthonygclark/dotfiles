@@ -2,34 +2,21 @@
 # Anthony Clark
 # ------~------~
 #
+# Alloe GIT autocomplete and other GIT stuff
+source /usr/share/git/completion/git-completion.bash
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-set_prompt_style () {
-  local USER_COLOR="\[\033[0;36m\]"   #Light Blue
-  local DIR_COLOR="\[\033[1;32m\]"    #Light Green
-  local SYMBOL="$"
-
-  if [ `whoami` == "root" ] ; then
-    USER_COLOR="\[\033[0;31m\]"       #Light Red
-    DIR_COLOR=$USER_COLOR
-    SYMBOL="#"
-  fi
-
-  #PS1="[\[\e[36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]"
-  PS1="[$USER_COLOR\h\[\e[0m\]][$DIR_COLOR\w\[\e[0m\]]$SYMBOL "
-
-}
-
-set_prompt_style
+if [ `whoami` == "root" ] ; then
+  export PS1='\[[\e[0;31m\]\h\[\e[0m\]][\e[0;31m\]\w\[\e[0m\]]\# '
+else
+  export PS1='\[[\e[0;36m\]\h\[\e[0m\]][\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ '
+fi
 
 # Various globals
 export WINEARCH=win32
 export EDITOR="vim"
-
-# Additions to PATH
-#PATH=/home/anthony/code/scripts:$PATH
-
 
 #The 'ls' family (in all it's glory)
 ####################################
@@ -48,7 +35,6 @@ alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 #Git Shortcuts (these are ugly)
 ##################################
 alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"   # very pretty git log
-
 
 
 # misc Shortcuts
