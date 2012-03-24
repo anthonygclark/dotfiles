@@ -8,13 +8,14 @@
 " https://github.com/samba/dotfiles/tree/master/vim
 "
 "
+syntax on
 set nocompatible                      " Do not accomodate vi
 set term=$TERM                        " Give vim your term settings
 set t_Co=256                          " Assure 256 color
 "set backup                            " Sets backup
 "set backupdir=$HOME/.vim/backup       " Backup files location
 "set directory=$HOME/.vim/swap         " Swap files location
-set tags=./tars,$HOME/.vim/tags       " You probably want to add more to these later.
+set tags=$HOME/.vim/tags              " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
 set incsearch                         " Search options
 set smartcase                         " Allows smartcase searching
@@ -35,27 +36,39 @@ set wildmenu                          " Enhanced tab-completion shows all matchi
 set backspace=indent,eol,start        " Backspace
 set stal=2                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
+set listchars+=tab:>-                 " Hidden character prefixes
+set listchars+=trail:-                " ^
 
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
 
-"This is for setting Makefiles and Python with tabs not spaces
+
+" File Specific Settings
+"-----------------------------------------------
 autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal noexpandtab
-
 "Save folds and apparently everything else
 "au BufWinLeave * silent! mkview
 "au BufWinEnter * silent! loadview
 
 
+" Abbreviations
+"-----------------------------------------------
+abbreviate #i #include
+abbreviate #d #define
+abbreviate sys System.out.println(
+
+
 " Status Bar
+"-----------------------------------------------
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]
 
 
-" Enable Sync
+" Conditionals
+"-----------------------------------------------
+" Map Sync
 if has('syntax')
-  syntax on
   " For redrawing the syntax highlighting
   nmap .SS :syn sync fromstart
 endif
@@ -66,10 +79,7 @@ if has('gui_running')
   set go-=r                           " disable right scrollbar
 endif
 
-" Set the color scheme
-colorscheme ac
-
-" More mouse stuff
+" Fixes Mouse issues in rxvt-unicode
 if &term == "rxvt-unicode-256color"
   set ttymouse=urxvt
 else
@@ -78,7 +88,15 @@ else
   endif
 endif
 
-" Mic key bindings
+
+" Color scheme
+"------------------------------------------------
+colorscheme ac
+
+
+
+" Key Bindings
+"-------------------------------------------------
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -94,6 +112,7 @@ nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
 nmap .I :set autoindent!<CR>
 nmap .T :set expandtab!<CR>
+
 
 " X11 clipboard access, There must be a better way...
 " ,pp to paste
@@ -116,6 +135,9 @@ vnoremap <Space> zf
 " Write file as ROOT
 cmap w!! w !sudo tee % >/dev/null
 
+
+" Functions
+"---------------------------------------------------
 " Highlight the text after 80 column mark
 nnoremap <silent> <F5>
       \ :if exists('w:long_line_match') <Bar>
@@ -126,6 +148,7 @@ nnoremap <silent> <F5>
       \ else <Bar>
       \   let w:long_line_match = matchadd('ErrorMsg', '\%>81v.\+', -1) <Bar>
       \ endif<CR>
+
 
 " Printing, allows other colorscheme for printing
 command! -nargs=* Hardcopy call DoMyPrint('<args>')

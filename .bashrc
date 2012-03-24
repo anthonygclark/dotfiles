@@ -9,9 +9,9 @@ source /usr/share/git/completion/git-completion.bash
 [[ $- != *i* ]] && return
 
 if [ `whoami` == "root" ] ; then
-  export PS1='\[[\e[0;31m\]\h\[\e[0m\]][\e[0;31m\]\w\[\e[0m\]]\# '
+  export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]\# \[$(tput sgr0)\]'
 else
-  export PS1='\[[\e[0;36m\]\h\[\e[0m\]][\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ '
+  export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
 fi
 
 # Various globals
@@ -32,10 +32,15 @@ alias lm="ls -al |more"     # pipe through 'more'
 alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 
-#Git Shortcuts (these are ugly)
-##################################
-alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"   # very pretty git log
+# Git Shortcuts (these are ugly)
+####################################
+alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"
 
+
+# Highlight shortcuts
+####################################
+alias highlightc="highlight -S c -O xterm256"
+alias highlightj="highlight -S java -O xterm256" 
 
 # misc Shortcuts
 #################
