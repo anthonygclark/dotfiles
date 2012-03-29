@@ -11,6 +11,7 @@ source /usr/share/git/completion/git-completion.bash
 if [ `whoami` == "root" ] ; then
   export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]\# \[$(tput sgr0)\]'
 else
+  # Assuming you have git-completion and git
   export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
 fi
 
@@ -21,7 +22,7 @@ export EDITOR="vim"
 #The 'ls' family (in all it's glory)
 ####################################
 alias ll="ls -l --group-directories-first"
-alias ls="ls --color=auto"  # add colors for filetype recognition
+alias ls="ls --color=auto"  # add colors for filetype recognition, THIS BREAKS in OSX
 alias la="ls -a"            # show hidden files
 alias lx="ls -lXB"          # sort by extension
 alias lk="ls -lSr"          # sort by size, biggest last

@@ -10,11 +10,6 @@
 "
 syntax on
 set nocompatible                      " Do not accomodate vi
-set term=$TERM                        " Give vim your term settings
-set t_Co=256                          " Assure 256 color
-"set backup                            " Sets backup
-"set backupdir=$HOME/.vim/backup       " Backup files location
-"set directory=$HOME/.vim/swap         " Swap files location
 set tags=$HOME/.vim/tags              " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
 set incsearch                         " Search options
@@ -43,6 +38,9 @@ set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
 
+"set backup                            " Sets backup
+"set backupdir=$HOME/.vim/backup       " Backup files location
+"set directory=$HOME/.vim/swap         " Swap files location
 
 " File Specific Settings
 "-----------------------------------------------
@@ -77,6 +75,9 @@ endif
 if has('gui_running')
   set go-=T                           " disable toolbar
   set go-=r                           " disable right scrollbar
+  else
+    set term=$TERM                    " Give vim your term settings
+    set t_Co=256                      " Assure 256 color
 endif
 
 " Fixes Mouse issues in rxvt-unicode
