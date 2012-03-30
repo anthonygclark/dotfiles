@@ -7,7 +7,10 @@
 " and his vimrc minimal.
 " https://github.com/samba/dotfiles/tree/master/vim
 "
-"
+
+" General Options
+"---------------------------------------------
+" {{{
 syntax on
 set nocompatible                      " Do not accomodate vi
 set tags=$HOME/.vim/tags              " You probably want to add more to these later.
@@ -38,33 +41,41 @@ set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
 
+set vop=folds                         " (view options) only save folds
+
 "set backup                            " Sets backup
 "set backupdir=$HOME/.vim/backup       " Backup files location
 "set directory=$HOME/.vim/swap         " Swap files location
+" }}}
 
 " File Specific Settings
 "-----------------------------------------------
+"{{{ 
 autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal noexpandtab
-"Save folds and apparently everything else
+" mkview and loadview save and load the views
+" specified in :vop
 "au BufWinLeave * silent! mkview
 "au BufWinEnter * silent! loadview
-
+"}}}
 
 " Abbreviations
 "-----------------------------------------------
+"{{{
 abbreviate #i #include
 abbreviate #d #define
 abbreviate sys System.out.println(
-
+"}}}
 
 " Status Bar
 "-----------------------------------------------
+"{{{
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]
-
+"}}}
 
 " Conditionals
 "-----------------------------------------------
+"{{{
 " Map Sync
 if has('syntax')
   " For redrawing the syntax highlighting
@@ -88,16 +99,17 @@ else
     set ttymouse=xterm2
   endif
 endif
-
+"}}}
 
 " Color scheme
 "------------------------------------------------
+"{{{
 colorscheme ac
-
-
+"}}}
 
 " Key Bindings
 "-------------------------------------------------
+"{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -135,10 +147,11 @@ vnoremap <Space> zf
 
 " Write file as ROOT
 cmap w!! w !sudo tee % >/dev/null
-
+"}}}
 
 " Functions
 "---------------------------------------------------
+"{{{
 " Highlight the text after 80 column mark
 nnoremap <silent> <F5>
       \ :if exists('w:long_line_match') <Bar>
@@ -150,7 +163,6 @@ nnoremap <silent> <F5>
       \   let w:long_line_match = matchadd('ErrorMsg', '\%>81v.\+', -1) <Bar>
       \ endif<CR>
 
-
 " Printing, allows other colorscheme for printing
 command! -nargs=* Hardcopy call DoMyPrint('<args>')
 function DoMyPrint(args)
@@ -159,3 +171,17 @@ function DoMyPrint(args)
   exec 'hardcopy '.a:args
   exec 'color '.colorsave
 endfunction
+
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files. Avoid printf() when needing literals or values not stored in
+" variables.
+function! AppendModeline()
+  "let l:modeline = printf(" vim: foldmethod=%s :", &foldmarker)
+  let l:modeline = " vim: foldmethod=marker : "
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+"}}}
+
+" vim: foldmethod=marker : 
