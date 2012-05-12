@@ -70,7 +70,7 @@ abbreviate sys System.out.println(
 " Status Bar
 "-----------------------------------------------
 "{{{
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L] 
 "}}}
 
 " Conditionals

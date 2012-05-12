@@ -91,7 +91,8 @@ hi Underlined   guifg=#ff00ff       gui=underline                         cterm=
 hi Directory    guifg=#5c5cff       ctermfg=12
 hi Ignore       guifg=#7f7f7f       ctermfg=8
 hi Todo         guifg=#FFFFFF       guibg=#ff5f5f   gui=BOLD              cterm=BOLD          ctermfg=231   ctermbg=203
-hi Function     guifg=#ad7fa8       ctermfg=13 cterm=BOLD
+hi Function     guifg=#FFFFFF       ctermfg=white
+"13
 
 hi WildMenu     guifg=#a4c161       guibg=#444444   gui=NONE              cterm=NONE          ctermfg=149   ctermbg=238
 
