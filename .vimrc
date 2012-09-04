@@ -1,10 +1,7 @@
 "------~------~
 " Anthony Clark
 "------~------~
-" 
-" My evergrowing vimrc.
-" Most of this taken from Sam B.
-" and his vimrc minimal.
+" Most of this taken from Sam B. and his vimrc minimal.
 " https://github.com/samba/dotfiles/tree/master/vim
 "
 
@@ -13,9 +10,8 @@
 " {{{
 syntax on
 set nocompatible                      " Do not accomodate vi
-set tags=$HOME/.vim/tags              " You probably want to add more to these later.
+set tags=$HOME/.vim/tags,./tags       " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
-set incsearch                         " Search options
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
 set mouse=a                           " Mouse
@@ -43,20 +39,18 @@ set printfont=Courier:h7              " Sets hardcopy font and size, sadly only 
 
 set vop=folds                         " (view options) only save folds
 
-"set backup                            " Sets backup
-"set backupdir=$HOME/.vim/backup       " Backup files location
-"set directory=$HOME/.vim/swap         " Swap files location
+set backup                            " Sets backup
+set backupdir=$HOME/.vim/backup       " Backup files location
+set directory=$HOME/.vim/swap         " Swap files location
 " }}}
 
 " File Specific Settings
 "-----------------------------------------------
-"{{{ 
-autocmd FileType make setlocal noexpandtab
-autocmd FileType python setlocal noexpandtab
-" mkview and loadview save and load the views
-" specified in :vop
-"au BufWinLeave * silent! mkview
-"au BufWinEnter * silent! loadview
+"{{{
+autocmd FileType make setlocal noet tabstop=4 shiftwidth=4
+autocmd FileType python setlocal et tabstop=4 shiftwidth=4
+autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
 "}}}
 
 " Abbreviations
@@ -64,13 +58,13 @@ autocmd FileType python setlocal noexpandtab
 "{{{
 abbreviate #i #include
 abbreviate #d #define
-abbreviate sys System.out.println(
+abbreviate sysout System.out.println(
 "}}}
 
 " Status Bar
 "-----------------------------------------------
 "{{{
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L] 
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "}}}
 
 " Conditionals
@@ -109,7 +103,6 @@ colorscheme ac
 
 " Key Bindings
 "-------------------------------------------------
-"{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -123,9 +116,6 @@ nmap .L :set list!<CR>
 nmap .P :set paste!<CR>
 nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
-nmap .I :set autoindent!<CR>
-nmap .T :set expandtab!<CR>
-
 
 " X11 clipboard access, There must be a better way...
 " ,pp to paste

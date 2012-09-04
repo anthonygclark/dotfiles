@@ -2,9 +2,6 @@
 # Anthony Clark
 # ------~------~
 #
-# Alloe GIT autocomplete and other GIT stuff
-source /usr/share/git/completion/git-completion.bash
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -32,16 +29,11 @@ alias lt="ls -ltr"          # sort by date, most recent last
 alias lm="ls -al |more"     # pipe through 'more'
 alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
+alias lp="ls++"             # https://github.com/trapd00r/ls--
 
-# Git Shortcuts (these are ugly)
+# Git Shortcuts
 ####################################
 alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"
-
-
-# Highlight shortcuts
-####################################
-alias highlightc="highlight -S c -O xterm256"
-alias highlightj="highlight -S java -O xterm256" 
 
 # misc Shortcuts
 #################
@@ -50,3 +42,12 @@ alias open="xdg-open"	# like OSX, open the default application
 # Tab Complete
 complete -cf sudo
 complete -cf man
+
+# prints git branch of pwd
+__git_ps1 () 
+{ 
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        printf "(%s)" "${b##refs/heads/}";
+    fi
+}

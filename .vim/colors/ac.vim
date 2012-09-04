@@ -75,12 +75,12 @@ hi Search       guibg=#ff00ff       guifg=#FFFFFF                         ctermf
 hi SpecialKey   guifg=#a4c161       ctermfg=149
 hi Title        guifg=#ff5f5f       ctermfg=203
 hi WarningMsg   guifg=#ff5f5f       ctermfg=203
+"hi StorageClass guifg=12            ctermfg=12
 hi Number       guifg=#ffaf5f       ctermfg=215
 hi MatchParen   guibg=#ad7fa8       guifg=#FFFFFF                         ctermfg=231         ctermbg=13
 hi Comment      guifg=#8a8a8a       ctermfg=240
 hi Constant     guifg=#ef5939       gui=NONE                              cterm=NONE          ctermfg=203
-"hi String       guifg=white         guibg=#3a3a3a   gui=BOLD              cterm=BOLD          ctermfg=white ctermbg=237
-hi String       guifg=white         gui=BOLD                              cterm=BOLD          ctermfg=white
+hi String       guifg=#d7af5f       ctermfg=179    
 hi Identifier   guifg=#729fcf       ctermfg=12
 hi Statement    guifg=#5fafaf       gui=BOLD                              cterm=BOLD          ctermfg=73
 hi PreCondit    guifg=#767676       gui=BOLD                              cterm=BOLD          ctermfg=243
@@ -91,11 +91,12 @@ hi Underlined   guifg=#ff00ff       gui=underline                         cterm=
 hi Directory    guifg=#5c5cff       ctermfg=12
 hi Ignore       guifg=#7f7f7f       ctermfg=8
 hi Todo         guifg=#FFFFFF       guibg=#ff5f5f   gui=BOLD              cterm=BOLD          ctermfg=231   ctermbg=203
-hi Function     guifg=#FFFFFF       ctermfg=white
-"13
+"hi Function     guifg=#ad7fa8       ctermfg=13 cterm=BOLD
+hi Function     guifg=#FFFFFF       ctermfg=white   gui=BOLD              cterm=BOLD
 
 hi WildMenu     guifg=#a4c161       guibg=#444444   gui=NONE              cterm=NONE          ctermfg=149   ctermbg=238
 
+"hi Function     guifg=#FFFFFF       ctermfg=white   gui=BOLD              cterm=BOLD
 hi Pmenu        guibg=#121212       guifg=#6c6c6c                         ctermfg=242         ctermbg=233
 hi PmenuSel     guibg=#080808       guifg=white     gui=BOLD              cterm=BOLD          ctermfg=15    ctermbg=232
 hi PmenuThumb   guibg=#121212       guifg=#a8a8a8                         ctermfg=248         ctermbg=233
@@ -106,6 +107,7 @@ hi spellBad     guisp=#ffaf5f       ctermbg=215
 hi spellCap     guisp=#5fd700       ctermbg=76
 hi spellRare    guisp=#ff00ff       ctermbg=13
 hi spellLocal   guisp=#5c5cff       ctermbg=12
+hi link         Delimeter           String
 hi link         cppSTL              Function
 hi link         Error               Todo
 hi link         Character           Number
