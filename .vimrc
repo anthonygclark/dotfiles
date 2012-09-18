@@ -103,6 +103,7 @@ colorscheme ac
 
 " Key Bindings
 "-------------------------------------------------
+"{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>

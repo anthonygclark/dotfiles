@@ -31,10 +31,6 @@ alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 alias lp="ls++"             # https://github.com/trapd00r/ls--
 
-# Git Shortcuts
-####################################
-alias gitl="git log --pretty='format:%Cgreen%H %Cred%ai %Creset- %s'"
-
 # misc Shortcuts
 #################
 alias open="xdg-open"	# like OSX, open the default application
