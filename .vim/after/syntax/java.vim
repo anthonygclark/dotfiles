@@ -8,9 +8,9 @@ syn match javaOperator  "&&\|||"
 syn match javaOperator	"[][]"
 
 " Delimiters
-syn match javaDelimiter    "[();\\;{}]"
-syn match javaBraces    "{}"
+syn match javaDelimiter    "[();\\]"
+syn match javaBraces display "[{}]"
 
 " Links
 hi def link javaDelimiter Delimiter
-hi def link javaBraces Delimiter
+hi link javaBraces Delimiter

@@ -12,6 +12,7 @@ syntax on
 set nocompatible                      " Do not accomodate vi
 set tags=$HOME/.vim/tags,./tags       " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
+set noincsearch                       " Turn off incsearch
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
 set mouse=a                           " Mouse

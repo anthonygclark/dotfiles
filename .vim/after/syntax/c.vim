@@ -252,29 +252,25 @@ syn match cOperator	"[][]"
 syn keyword cDefined defined contained containedin=cDefine
 hi def link cDefined cDefine
 
-" Functions
-syn match cUserFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine
-syn match cUserFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimiter,cOperator
+" Highlight Class and Function names
+syn match    cCustomParen    "(" contains=cParen,cCppParen
+syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
+syn match    cCustomScope    "::"
+syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
 
-hi def link cUserFunction cFunction
-hi def link cUserFunctionPointer cFunction
+hi def link cCustomFunc  Function
+hi def link cCustomClass Function
 
 " Delimiters
 syn match cDelimiter    "[();\\]"
-" foldmethod=syntax fix, courtesy of Ivan Freitas
 syn match cBraces display "[{}]"
-
 
 " Booleans
 syn keyword cBoolean true false TRUE FALSE
 
-
 " Links
 hi def link cFunction Function
-"hi def link cUserFunction Identifier
 hi def link cIdentifier Identifier
 hi def link cDelimiter Delimiter
-" foldmethod=syntax fix, courtesy of Ivan Freitas
 hi def link cBraces Delimiter
 hi def link cBoolean Boolean
-
