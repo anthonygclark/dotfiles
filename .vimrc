@@ -68,6 +68,12 @@ abbreviate sysout System.out.println(
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "}}}
 
+" Color scheme
+"------------------------------------------------
+"{{{ 
+colorscheme ac
+"}}}
+
 " Conditionals
 "-----------------------------------------------
 "{{{
@@ -81,6 +87,7 @@ endif
 if has('gui_running')
   set go-=T                           " disable toolbar
   set go-=r                           " disable right scrollbar
+  colorscheme github
   else
     set term=$TERM                    " Give vim your term settings
     set t_Co=256                      " Assure 256 color
@@ -94,12 +101,6 @@ else
     set ttymouse=xterm2
   endif
 endif
-"}}}
-
-" Color scheme
-"------------------------------------------------
-"{{{
-colorscheme ac
 "}}}
 
 " Key Bindings

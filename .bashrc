@@ -16,6 +16,8 @@ fi
 export WINEARCH=win32
 export EDITOR="vim"
 
+export PATH=$PATH:/home/anthony/code/scripts
+
 #The 'ls' family (in all it's glory)
 ####################################
 alias ll="ls -l --group-directories-first"
