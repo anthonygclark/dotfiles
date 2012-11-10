@@ -87,6 +87,7 @@ endif
 if has('gui_running')
   set go-=T                           " disable toolbar
   set go-=r                           " disable right scrollbar
+  set lines=48 columns=70
   colorscheme github
   else
     set term=$TERM                    " Give vim your term settings

@@ -1,7 +1,7 @@
 " Operators
 syn match pythonOperator	"\(<<\|>>\|[-+*/%&^|<>!=]\)="
 syn match pythonOperator	"<<\|>>\|&&\|||\|++\|--\|->"
-syn match pythonOperator	"[!~*&%<>^|=,+-]"
+syn match pythonOperator	"[!~*&%<>^|=,+.-]"
 syn match pythonOperator	"/[^/*=]"me=e-1
 syn match pythonOperator	"/$"
 syn match pythonOperator "&&\|||"
