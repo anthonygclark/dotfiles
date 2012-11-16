@@ -2,28 +2,40 @@
 d=$(date +%F_%H_%M_%S)
 out="$HOME/dotfiles_backup_$d.tar"
 declare -A f
+declare -A e
 
 fail() {
-  echo "Failure"
+  echo "Failure: $1"
   exit 1
 }
 
+# Build array of these dotfiles
 for i in $(ls -a); do
   # Filter out unwanted 
   if [ $i == "." -o $i == ".."  -o $i == "README" -o $i == $0 -o $i == ".git" ] ; then
     continue
   fi
   # Add to array
-  f[${#f[@]}]="$HOME/$i"
+  f[${#f[@]}]="$i"
 done
 
-tar -cf $out ${f[@]} &>/dev/null || fail
+# Build array of dotfiles that match the current dotfiles
+# for backup
+for i in ${f[@]}; do
+  if [ -z $(ls -a $HOME | grep -x $i) ]; then
+    continue
+  fi
+  echo "Found old dotfile: $i"
+  e[${#e[@]}]="$HOME/$i"
+done
+
+tar -cf $out ${e[@]} &>/dev/null || fail "tar"
 echo "[+] Backing up old dotfiles to $out"
 
-for i in ${f[@]}; do rm -r $i || fail ; done
+for i in ${e[@]}; do rm -r $i || fail "remove"; done
 echo "[+] Deleted old dotfiles."
 
 for i in ${f[@]}; do 
-  cp -r $i $HOME
+  cp -r $i $HOME || fail "copy"
 done
 echo "[+] New dotfiles installed"
