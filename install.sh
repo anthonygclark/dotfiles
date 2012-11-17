@@ -13,7 +13,7 @@ fail() {
 # Build array of these dotfiles
 for i in $(ls -a); do
   # Filter out unwanted 
-  if [ $i == "." -o $i == ".."  -o $i == "README" -o $i == $this -o $i == ".git" ] ; then
+  if [ $i == "." -o $i == ".."  -o $i == "README" -o $i == $this -o $i == ".git" -o $i == ".gitignore" ] ; then
     continue
   fi
   # Add to array
