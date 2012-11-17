@@ -32,7 +32,7 @@ done
 tar -cf $out ${e[@]} &>/dev/null || fail "tar"
 echo "[+] Backing up old dotfiles to $out"
 
-for i in ${e[@]}; do rm -r $i || fail "remove"; done
+for i in ${e[@]}; do rm -r $HOME/$i || fail "remove"; done
 echo "[+] Deleted old dotfiles."
 
 for i in ${f[@]}; do 
