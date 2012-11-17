@@ -1,6 +1,7 @@
 #!/bin/bash
 d=$(date +%F_%H_%M_%S)
 out="$HOME/dotfiles_backup_$d.tar"
+this=$(basename $0)
 declare -A f
 declare -A e
 
@@ -12,7 +13,7 @@ fail() {
 # Build array of these dotfiles
 for i in $(ls -a); do
   # Filter out unwanted 
-  if [ $i == "." -o $i == ".."  -o $i == "README" -o $i == $0 -o $i == ".git" ] ; then
+  if [ $i == "." -o $i == ".."  -o $i == "README" -o $i == $this -o $i == ".git" ] ; then
     continue
   fi
   # Add to array
