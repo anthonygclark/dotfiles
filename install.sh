@@ -26,7 +26,7 @@ for i in ${f[@]}; do
     continue
   fi
   echo "Found old dotfile: $i"
-  e[${#e[@]}]="$HOME/$i"
+  e[${#e[@]}]="$i"
 done
 
 tar -cf $out ${e[@]} &>/dev/null || fail "tar"
