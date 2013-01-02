@@ -57,14 +57,14 @@ hi MatchParen   guibg=#ad7fa8   guifg=#FFFFFF                                   
 hi Comment      guifg=#585858                                                     ctermfg=240
 hi Constant     guifg=#ff5f5f   gui=NONE                        cterm=NONE        ctermfg=203
 hi String       guifg=#d7af5f                                                     ctermfg=179  
-hi Identifier   guifg=#729fcf   gui=BOLD                        cterm=BOLD        ctermfg=12
+hi Identifier   guifg=#6d9cbe   gui=BOLD                        cterm=BOLD        ctermfg=74
 hi Statement    guifg=#5fafaf   gui=BOLD                        cterm=BOLD        ctermfg=73
 hi PreCondit    guifg=#767676   gui=BOLD                        cterm=BOLD        ctermfg=243
 hi PreProc      guifg=#ffffff   gui=BOLD                        cterm=BOLD        ctermfg=231
 hi Type         guifg=#a4c161   gui=BOLD                        cterm=BOLD        ctermfg=149
 hi Special      guifg=#d7af5f                                                     ctermfg=179
 hi Underlined   guifg=#ad7fa8   gui=underline                   cterm=underline   ctermfg=13
-hi Directory    guifg=#729fcf                                                     ctermfg=12
+hi Directory    guifg=#6d9cbe                                                     ctermfg=74
 hi Ignore       guifg=#7f7f7f                                                     ctermfg=8
 hi Todo         guifg=#FFFFFF   guibg=#ff5f5f   gui=BOLD        cterm=BOLD        ctermfg=231   ctermbg=203
 hi Function     guifg=#FFFFFF                   gui=BOLD        cterm=BOLD        ctermfg=255
@@ -79,7 +79,7 @@ hi PmenuSbar    guibg=#444444   gui=BOLD                        cterm=BOLD      
 hi spellBad     guisp=#ffaf5f                                                                   ctermbg=215
 hi spellCap     guisp=#5fd700                                                                   ctermbg=76
 hi spellRare    guisp=#ff00ff                                                                   ctermbg=13
-hi spellLocal   guisp=#5c5cff                                                                   ctermbg=12
+hi spellLocal   guisp=#5c5cff                                                                   ctermbg=74
 
 hi link         Delimeter       String
 hi link         cppSTL          Function
