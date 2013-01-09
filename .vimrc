@@ -60,6 +60,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 abbreviate #i #include
 abbreviate #d #define
 abbreviate sysout System.out.println(
+abbreviate syserr System.out.err(
 "}}}
 
 " Status Bar
@@ -68,15 +69,25 @@ abbreviate sysout System.out.println(
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "}}}
 
-" Color scheme
-"------------------------------------------------
-"{{{ 
-colorscheme ac
-"}}}
-
 " Conditionals
 "-----------------------------------------------
 "{{{
+" Fixes Mouse issues in rxvt-unicode
+if &term == "rxvt-unicode-256color"
+  set ttymouse=urxvt
+else
+  if &term == "xterm"
+    set ttymouse=xterm2
+  endif
+endif
+
+" Choose color scheme
+if &term == "linux"
+  colorscheme desert                " for consoles
+else
+  colorscheme ac                    " for other terminals (ie - urxvt)
+endif
+
 " Map Sync
 if has('syntax')
   " For redrawing the syntax highlighting
@@ -85,22 +96,13 @@ endif
 
 " GUI Specific options
 if has('gui_running')
-  set go-=T                           " disable toolbar
-  set go-=r                           " disable right scrollbar
+  set go-=T                         " disable toolbar
+  set go-=r                         " disable right scrollbar
   set lines=48 columns=80
   "colorscheme github
-  else
-    set term=$TERM                    " Give vim your term settings
-    set t_Co=256                      " Assure 256 color
-endif
-
-" Fixes Mouse issues in rxvt-unicode
-if &term == "rxvt-unicode-256color"
-  set ttymouse=urxvt
 else
-  if &term == "xterm"
-    set ttymouse=xterm2
-  endif
+  set term=$TERM                    " Give vim your term settings
+  set t_Co=256                      " Assure 256 color
 endif
 "}}}
 
