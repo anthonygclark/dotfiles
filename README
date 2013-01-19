@@ -1,4 +1,4 @@
 Anthony Clark's Dotfiles
+After cloning, change the following:
 
-To clone a generic copy of these: `git clone -b generic http://github.com/anthonygclark/dotfiles`
-(Otherwise you will pull the files that have my email address, etc)
+* Email and Name in ~/.gitconfig
