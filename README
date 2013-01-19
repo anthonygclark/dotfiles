@@ -1,1 +1,4 @@
-dotfiles
+Anthony Clark's Dotfiles
+
+To clone a generic copy of these: `git clone -b generic http://github.com/anthonygclark/dotfiles`
+(Otherwise you will pull the files that have my email address, etc)
