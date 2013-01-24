@@ -30,13 +30,16 @@ for i in ${f[@]}; do
   e[${#e[@]}]="$i"
 done
 
+p=$(pwd)
+cd $HOME
 tar -cf $out ${e[@]} &>/dev/null || fail "tar"
 echo "[+] Backing up old dotfiles to $out"
+cd $p
 
 for i in ${e[@]}; do rm -r $HOME/$i || fail "remove"; done
 echo "[+] Deleted old dotfiles."
 
 for i in ${f[@]}; do 
-  cp -r $i $HOME || fail "copy"
+  cp -r $i $HOME/ || fail "copy"
 done
 echo "[+] New dotfiles installed"
