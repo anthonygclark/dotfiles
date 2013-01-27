@@ -5,23 +5,40 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-if [ `whoami` == "root" ] ; then
-  export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]\# \[$(tput sgr0)\]'
-else
-  # Assuming you have git-completion and git
-  export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
+# To color or not to color
+color_prompt=
+
+if which tput > /dev/null && tput setaf 1 >&/dev/null; then 
+  color_prompt=yes
 fi
 
-# Various globals
+if [ "$color_prompt" = yes ] ; then
+  case `whoami` in
+    root)
+      export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]\# \[$(tput sgr0)\]'
+    ;;
+    *)
+      export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
+    ;;
+  esac
+
+  # color specific aliases
+  alias ls="ls --color=auto" # THIS BREAKS in OSX
+
+else
+    export PS1='[\u@\h \W]\$ '
+fi
+
+# Various vars
 export WINEARCH=win32
 export EDITOR="vim"
 
+# Path Additions
 export PATH=$PATH:/home/anthony/code/scripts
 
 #The 'ls' family (in all it's glory)
 ####################################
 alias ll="ls -l --group-directories-first"
-alias ls="ls --color=auto"  # add colors for filetype recognition, THIS BREAKS in OSX
 alias la="ls -a"            # show hidden files
 alias lx="ls -lXB"          # sort by extension
 alias lk="ls -lSr"          # sort by size, biggest last
@@ -33,13 +50,16 @@ alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 alias lp="ls++"             # https://github.com/trapd00r/ls--
 
-# misc Shortcuts
-#################
-alias open="xdg-open"	# like OSX, open the default application
+# Custom completions Tab Complete
+complete -cf optirun
 
-# Tab Complete
-complete -cf sudo
-complete -cf man
+# Import all bash-completions (if they exist)
+# Also, install bash-completions package
+[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+
+# Shopt
+shopt -s histappend
+shopt -s checkwinsize
 
 # prints git branch of pwd
 __git_ps1 () 

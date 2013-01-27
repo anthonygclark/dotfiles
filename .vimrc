@@ -1,9 +1,6 @@
 "------~------~
 " Anthony Clark
 "------~------~
-" Most of this taken from Sam B. and his vimrc minimal.
-" https://github.com/samba/dotfiles/tree/master/vim
-"
 
 " General Options
 "---------------------------------------------
@@ -23,7 +20,7 @@ set splitbelow splitright             " Put new windows below and right by defau
 set autoindent smartindent            " Toggle Auto-indent and Smart-indent.
 set tabstop=2 shiftwidth=2 expandtab  " Spaces for tabs, indentation, and avoid real tabs
 set nowrap                            " No wrapping of lines
-set clipboard+=unnamed                " Yank and copy to X clipboard (maybe)
+set clipboard=unnamed                 " Yank and copy to X clipboard (maybe)
 set laststatus=2                      " Always show the status line
 set cmdheight=1                       " Height of command line
 set ww=b,s,h,l,<,>,[,]                " Whichwrap -- left/right keys can traverse up/down

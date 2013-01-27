@@ -27,6 +27,7 @@ autodetach on
 
 # Terminal tweaks
 terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+terminfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # stat line at the bottom of each screen 
 hardstatus off
