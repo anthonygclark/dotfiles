@@ -48,7 +48,7 @@ hi Visual       guifg=#a8a8a8   guibg=#444444   gui=NONE        cterm=NONE      
 hi VisualNOS    guifg=#FFFFFF   guibg=#005f87   gui=NONE        cterm=NONE        ctermfg=231   ctermbg=24
 hi IncSearch    guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
 hi Search       guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
-hi SpecialKey   guifg=#a4c161                                                     ctermfg=149
+hi SpecialKey   guifg=#7f7f7f                                                     ctermfg=8
 hi Title        guifg=#ff5f5f                                                     ctermfg=203
 hi WarningMsg   guifg=#ff5f5f                                                     ctermfg=203
 
