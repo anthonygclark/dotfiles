@@ -1,0 +1,39 @@
+diff --git a/.gitconfig b/.gitconfig
+index 33713d4..ee10847 100644
+--- a/.gitconfig
++++ b/.gitconfig
+@@ -1,6 +1,3 @@
+-[user]
+-  name = Anthony Clark
+-  email = clark.anthony.g@gmail.com
+ [color]
+   ui = auto
+ [color "branch"]
+@@ -21,5 +18,3 @@
+   lla = log --graph --decorate --pretty=oneline --abbrev-commit --all
+   ls = ls-files
+   ign = ls-files -o -i --exclude-standard
+-[push]
+-	default = simple
+diff --git a/.vimrc b/.vimrc
+index 358c60d..1d8d4f2 100644
+--- a/.vimrc
++++ b/.vimrc
+@@ -84,7 +84,7 @@ endif
+ if &term == "linux"
+     colorscheme desert                " for consoles
+ else
+-    colorscheme ac                    " for other terminals (ie - urxvt)
++    colorscheme default               " for other terminals (ie - urxvt)
+ endif
+ 
+ " Map Sync
+@@ -161,7 +161,7 @@ nnoremap <silent> <F5>
+ command! -nargs=* Hardcopy call DoMyPrint('<args>')
+ function DoMyPrint(args)
+     let colorsave=g:colors_name
+-    color ac "<---- custom colors here
++    color default "<---- custom colors here
+     exec 'hardcopy '.a:args
+     exec 'color '.colorsave
+ endfunction
