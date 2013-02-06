@@ -6,6 +6,8 @@
 "---------------------------------------------
 " {{{
 syntax on
+filetype plugin indent on
+
 set nocompatible                      " Do not accomodate vi
 set tags=$HOME/.vim/tags,./tags       " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
@@ -18,7 +20,7 @@ set number                            " Show line numbers
 set spelllang=en                      " Spelling options
 set splitbelow splitright             " Put new windows below and right by default
 set autoindent smartindent            " Toggle Auto-indent and Smart-indent.
-set tabstop=2 shiftwidth=2 expandtab  " Spaces for tabs, indentation, and avoid real tabs
+set tabstop=4 shiftwidth=4 expandtab  " Spaces for tabs, indentation, and avoid real tabs
 set nowrap                            " No wrapping of lines
 set clipboard=unnamed                 " Yank and copy to X clipboard (maybe)
 set laststatus=2                      " Always show the status line
@@ -26,7 +28,7 @@ set cmdheight=1                       " Height of command line
 set ww=b,s,h,l,<,>,[,]                " Whichwrap -- left/right keys can traverse up/down
 set wildmenu                          " Enhanced tab-completion shows all matching cmds n a popup menu
 set backspace=indent,eol,start        " Backspace
-set stal=2                            " Show tab line
+set stal=4                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 set listchars+=tab:>-                 " Hidden character prefixes
 set listchars+=trail:-                " ^
@@ -45,8 +47,8 @@ set directory=$HOME/.vim/swap         " Swap files location
 " File Specific Settings
 "-----------------------------------------------
 "{{{
-autocmd FileType make setlocal noet tabstop=4 shiftwidth=4
-autocmd FileType python setlocal et tabstop=4 shiftwidth=4
+autocmd FileType make setlocal noet 
+autocmd FileType python setlocal noet
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "}}}
@@ -57,7 +59,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 abbreviate #i #include
 abbreviate #d #define
 abbreviate sysout System.out.println(
-abbreviate syserr System.out.err(
+abbreviate syserr System.err.println(
 "}}}
 
 " Status Bar
@@ -70,36 +72,35 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "-----------------------------------------------
 "{{{
 " Fixes Mouse issues in rxvt-unicode
-if &term == "rxvt-unicode-256color"
-  set ttymouse=urxvt
+if &term == "rxvt-unicode-*"
+    set ttymouse=urxvt
 else
-  if &term == "xterm"
-    set ttymouse=xterm2
-  endif
+    if &term == "xterm"
+        set ttymouse=xterm2
+    endif
 endif
 
 " Choose color scheme
 if &term == "linux"
-  colorscheme desert                " for consoles
+    colorscheme desert                " for consoles
 else
-  colorscheme ac                    " for other terminals (ie - urxvt)
+    colorscheme ac                    " for other terminals (ie - urxvt)
 endif
 
 " Map Sync
 if has('syntax')
-  " For redrawing the syntax highlighting
-  nmap .SS :syn sync fromstart
+    " For redrawing the syntax highlighting
+    nmap .SS :syn sync fromstart
 endif
 
 " GUI Specific options
 if has('gui_running')
-  set go-=T                         " disable toolbar
-  set go-=r                         " disable right scrollbar
-  set lines=48 columns=80
-  "colorscheme github
+    set go-=T                         " disable toolbar
+    set go-=r                         " disable right scrollbar
+    set lines=48 columns=80
 else
-  set term=$TERM                    " Give vim your term settings
-  set t_Co=256                      " Assure 256 color
+    set term=$TERM                    " Give vim your term settings
+    set t_Co=256                      " Assure 256 color
 endif
 "}}}
 
@@ -147,22 +148,22 @@ cmap w!! w !sudo tee % >/dev/null
 "{{{
 " Highlight the text after 80 column mark
 nnoremap <silent> <F5>
-      \ :if exists('w:long_line_match') <Bar>
-      \   silent! call matchdelete(w:long_line_match) <Bar>
-      \   unlet w:long_line_match <Bar>
-      \ elseif &textwidth > 0 <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
-      \ else <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>81v.\+', -1) <Bar>
-      \ endif<CR>
+            \ :if exists('w:long_line_match') <Bar>
+            \   silent! call matchdelete(w:long_line_match) <Bar>
+            \   unlet w:long_line_match <Bar>
+            \ elseif &textwidth > 0 <Bar>
+            \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
+            \ else <Bar>
+            \   let w:long_line_match = matchadd('ErrorMsg', '\%>81v.\+', -1) <Bar>
+            \ endif<CR>
 
 " Printing, allows other colorscheme for printing
 command! -nargs=* Hardcopy call DoMyPrint('<args>')
 function DoMyPrint(args)
-  let colorsave=g:colors_name
-  color ac "<---- custom colors here
-  exec 'hardcopy '.a:args
-  exec 'color '.colorsave
+    let colorsave=g:colors_name
+    color ac "<---- custom colors here
+    exec 'hardcopy '.a:args
+    exec 'color '.colorsave
 endfunction
 
 " Append modeline after last line in buffer.
@@ -170,9 +171,8 @@ endfunction
 " files. Avoid printf() when needing literals or values not stored in
 " variables.
 function! AppendModeline()
-  "let l:modeline = printf(" vim: foldmethod=%s :", &foldmarker)
-  let l:modeline = " vim: foldmethod=marker : "
-  call append(line("$"), l:modeline)
+    let l:modeline = " vim: foldmethod=marker : "
+    call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 "}}}
