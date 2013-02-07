@@ -72,7 +72,7 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "-----------------------------------------------
 "{{{
 " Fixes Mouse issues in rxvt-unicode
-if &term == "rxvt-unicode-*"
+if &term == "rxvt-unicode-256color"
     set ttymouse=urxvt
 else
     if &term == "xterm"

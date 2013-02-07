@@ -15,7 +15,7 @@ fi
 if [ "$color_prompt" = yes ] ; then
   case `whoami` in
     root)
-      export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]\# \[$(tput sgr0)\]'
+      export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]# \[$(tput sgr0)\]'
     ;;
     *)
       export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
@@ -53,9 +53,16 @@ alias lp="ls++"             # https://github.com/trapd00r/ls--
 # Custom completions Tab Complete
 complete -cf optirun
 
-# Import all bash-completions (if they exist)
-# Also, install bash-completions package
-[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+# Import all bash-completions
+# Arch Linux
+[ -r /usr/share/bash-completion/bash_completion ] && {
+    . /usr/share/bash-completion/bash_completion
+} || {
+    # Debian/ubuntu    
+    [ -r /etc/bash_completion ] && { 
+        . /etc/bash_completion
+    }
+}
 
 # Shopt
 shopt -s histappend
