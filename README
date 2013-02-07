@@ -6,7 +6,7 @@ dotfiles. If you answer `y` to make these generic, a patch
 will be applied removing all of my user information/paths
 from the files.
 
-If you don't want me version of, for example, `.xinitrc`, after
+If you don't want my version of, for example, `.xinitrc`, after
 a `git pull` or `git clone`, just remove this file from the place
 where you pulled this source. The installer can't install something
 that isn't there ;)
