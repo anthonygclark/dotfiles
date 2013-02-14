@@ -69,6 +69,8 @@ echo -ne "Make these dotfiles generic? [y/n]?: "
 read ans
 if [ ${ans,,} == "y" ] ; then
     patch -p1 < $script_dir/generic.patch || fail "patch"
+else
+    echo "Aborting Patch"
 fi
 
 
