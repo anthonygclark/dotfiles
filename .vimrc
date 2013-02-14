@@ -9,7 +9,6 @@ syntax on
 filetype plugin indent on
 
 set nocompatible                      " Do not accomodate vi
-set tags=$HOME/.vim/tags,./tags       " You probably want to add more to these later.
 set hlsearch                          " Highlighted search enabled by default
 set noincsearch                       " Turn off incsearch
 set smartcase                         " Allows smartcase searching
@@ -44,14 +43,34 @@ set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
 " }}}
 
+
+" Extra Tags
+" ---------------------------------------------
+"  {{{
+for f in split(glob('$HOME/.vim/tags/*'), '\n')
+    exe 'set tags+=' . f
+endfor
+" }}}
+
+
+" Close Scatch/preview buff where not focused
+" ----------------------------------------------
+"  {{{
+autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
+"}}}
+
+
 " File Specific Settings
 "-----------------------------------------------
 "{{{
 autocmd FileType make setlocal noet 
 autocmd FileType python setlocal noet
-autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType c,h set omnifunc=ccomplete#Complete
+autocmd FileType cpp,hpp set omnifunc=omni#cpp#complete#Main
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "}}}
+
 
 " Abbreviations
 "-----------------------------------------------
@@ -62,11 +81,13 @@ abbreviate sysout System.out.println(
 abbreviate syserr System.err.println(
 "}}}
 
+
 " Status Bar
 "-----------------------------------------------
 "{{{
 set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "}}}
+
 
 " Conditionals
 "-----------------------------------------------
@@ -103,6 +124,7 @@ else
     set t_Co=256                      " Assure 256 color
 endif
 "}}}
+
 
 " Key Bindings
 "-------------------------------------------------
@@ -143,6 +165,7 @@ vnoremap <Space> zf
 cmap w!! w !sudo tee % >/dev/null
 "}}}
 
+
 " Functions
 "---------------------------------------------------
 "{{{
@@ -176,5 +199,6 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 "}}}
+
 
 " vim: foldmethod=marker : 
