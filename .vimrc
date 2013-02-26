@@ -67,7 +67,6 @@ set completeopt=menuone,menu,longest,preview
 autocmd FileType make setlocal noet 
 autocmd FileType python setlocal noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
-autocmd FileType cpp,hpp set omnifunc=omni#cpp#complete#Main
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "}}}
 
@@ -75,11 +74,11 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 " Abbreviations
 "-----------------------------------------------
 "{{{
-abbreviate #i #include
 abbreviate #d #define
+abbreviate #i #include
 abbreviate sysout System.out.println(
 abbreviate syserr System.err.println(
-"}}}
+}}}
 
 
 " Status Bar
@@ -131,6 +130,7 @@ endif
 "-------------------------------------------------
 "{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
+nmap <F8> :TagbarToggle<CR>
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
 nmap .p :prev<CR>
