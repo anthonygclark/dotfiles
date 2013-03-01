@@ -78,7 +78,7 @@ abbreviate #d #define
 abbreviate #i #include
 abbreviate sysout System.out.println(
 abbreviate syserr System.err.println(
-}}}
+"}}}
 
 
 " Status Bar
