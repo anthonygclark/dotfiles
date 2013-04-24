@@ -17,7 +17,7 @@ bind ^S
 bind s
 
 # for launching some of the stuff i use most
-bind v screen vim
+bind v screen vim -c "Explore"
 bind w screen weechat-curses
 bind t screen -t '(h)top' bash -c "which htop > /dev/null && htop || top"
 bind R screen -t '#|root:' sudo -i
@@ -31,7 +31,7 @@ terminfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # stat line at the bottom of each screen 
 hardstatus off
-caption always "%{= dd}%?%F%{+b ..}%?%{+ .y}%3n%{-} %{+ .g}%t%{-} %?%{+ .y}[%f]%{-}%? %?%u%? %= %?%?%{+ .b}[%h]%?%{-} %{+ .y}%l%{-} %{+ .g}%0c:%s%{-}"
+caption always "%{= dd}%?%F%{+b ..}%?%{+ .y}%3n%{-} %{+ .g}%t%{-} %?%{+ .y}[%f]%{-}%? %?%u%? %= %?%?%{+ .b}[%h]%?%{-} %{+ .y}%l%{-} %{+ .g}%0c%{-}"
 
 # colorful, informational window list
 windowlist title  "%{+ y}Flag%{-} %{+ y}Num%{-} %{+ g}Title%{-} %= %{+ b}Hardstatus%{-}"

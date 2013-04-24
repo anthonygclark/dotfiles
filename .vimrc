@@ -15,6 +15,7 @@ set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
 set mouse=a                           " Mouse
 set foldenable                        " Enable folding
+set cursorline                        " highlight line
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
 set splitbelow splitright             " Put new windows below and right by default
@@ -47,9 +48,9 @@ set directory=$HOME/.vim/swap         " Swap files location
 " Extra Tags
 " ---------------------------------------------
 "  {{{
-for f in split(glob('$HOME/.vim/tags/*'), '\n')
-    exe 'set tags+=' . f
-endfor
+"for f in split(glob('$HOME/.vim/tags/*'), '\n')
+"    exe 'set tags+=' . f
+"endfor
 " }}}
 
 

@@ -8,22 +8,23 @@
 # To color or not to color
 color_prompt=
 
-if which tput > /dev/null && tput setaf 1 >&/dev/null; then 
-  color_prompt=yes
+if which tput > /dev/null && tput setaf 1 &>/dev/null; then 
+    color_prompt=yes
 fi
 
 if [ "$color_prompt" = yes ] ; then
-  case `whoami` in
-    root)
-      export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]# \[$(tput sgr0)\]'
-    ;;
-    *)
-      export PS1='[\[\e[0;36m\]\h\[\e[0m\]][\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
-    ;;
-  esac
 
-  # color specific aliases
-  alias ls="ls --color=auto" # THIS BREAKS in OSX
+    case `whoami` in
+        root)
+            export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]# \[$(tput sgr0)\]'
+            ;;
+        *)
+            export PS1='[\[\e[0;36m\]\h\[\e[0m\]]$(__make_flags)[\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
+            ;;
+    esac
+
+    # color specific aliases
+    alias ls="ls --color=auto" # THIS BREAKS in OSX
 
 else
     export PS1='[\u@\h \W]\$ '
@@ -54,6 +55,7 @@ alias lp="ls++"             # https://github.com/trapd00r/ls--
 complete -cf optirun
 
 # Import all bash-completions
+#
 # Arch Linux
 [ -r /usr/share/bash-completion/bash_completion ] && {
     . /usr/share/bash-completion/bash_completion
@@ -75,4 +77,13 @@ __git_ps1 ()
     if [ -n "$b" ]; then
         printf "(%s)" "${b##refs/heads/}";
     fi
+}
+
+# print indicators for certain vars
+__make_flags()
+{
+    local f=
+    [ -z ${SSH_CLIENT%% *} ] || f="$f\033[93ms\033[0m"
+    [ -z $VIMRUNTIME ] || f="$f\033[95mv\033[0m"
+    [ -z $f ] || printf "[%b]" "$f";
 }

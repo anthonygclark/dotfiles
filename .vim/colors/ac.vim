@@ -10,12 +10,12 @@ if exists("syntax_on")
   syntax reset
 endif
 
-hi Normal guifg=#eeeeee guibg=#262626 ctermfg=255 ctermbg=235
 
 set background=dark
 
 let g:colors_name = "ac"
 
+hi Normal                       guifg=#eeeeee   guibg=#262626                     ctermfg=255   ctermbg=235
 hi ErrorMsg     gui=NONE        guifg=White     guibg=#ff0000   cterm=NONE        ctermfg=231   ctermbg=196
 hi Question     gui=BOLD        guifg=#00875f   guibg=NONE      cterm=BOLD        ctermfg=29    ctermbg=NONE
 hi SignColumn   gui=NONE        guifg=#000087   guibg=Grey      cterm=NONE        ctermfg=18    ctermbg=250
@@ -24,9 +24,10 @@ hi SpellCap     gui=undercurl   guifg=NONE      guisp=Blue      cterm=undercurl 
 hi SpellRare    gui=undercurl   guifg=NONE      guisp=Magenta   cterm=undercurl   ctermfg=NONE  ctermbg=201
 hi SpellLocal   gui=undercurl   guifg=NONE      guisp=DarkCyan  cterm=undercurl   ctermfg=NONE  ctermbg=30
 hi lCursor      gui=reverse     guifg=NONE      guibg=NONE      cterm=reverse     ctermfg=NONE  ctermbg=NONE
-hi Cursor       guibg=#ffffff   guifg=#000000                                     ctermfg=16    ctermbg=231
-hi CursorLine   guibg=#000000                                                                   ctermbg=16
-hi CursorColumn guibg=#444444                                                                   ctermbg=238
+hi Cursor                       guifg=#000000   guibg=#ffffff                     ctermfg=16    ctermbg=231
+hi CursorLine   gui=NONE                        guibg=#262626   cterm=NONE                      ctermbg=235
+hi CursorLineNr gui=NONE        guifg=#d7af5f                   cterm=NONE        ctermfg=179
+hi CursorColumn gui=NONE                        guibg=#262626   cterm=NONE                      ctermbg=235
 
 hi DiffAdd      guifg=#ffd787   guibg=#af8700   gui=NONE        cterm=NONE        ctermfg=222   ctermbg=136
 hi DiffChange   guifg=#87afff   guibg=#425c78   gui=NONE        cterm=NONE        ctermfg=111   ctermbg=60
