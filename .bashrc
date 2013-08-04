@@ -5,6 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Shopt
+shopt -s histappend
+shopt -s checkwinsize
+
 # To color or not to color
 color_prompt=
 
@@ -14,12 +18,12 @@ fi
 
 if [ "$color_prompt" = yes ] ; then
 
-    case `whoami` in
-        root)
-            export PS1='[\[\e[0;31m\]\h\[\e[0m\]][\[\e[0;31m\]\w\[\e[0m\]]# \[$(tput sgr0)\]'
+    case $(( UID)) in
+        0)  # root
+            PS1='[\[$(tput setaf 1)\]\h\[$(tput sgr0)\]]$(__make_flags)[\[$(tput bold)\]\[$(tput setaf 1\]\w\[$(tput sgr0)]\]# '
             ;;
         *)
-            export PS1='[\[\e[0;36m\]\h\[\e[0m\]]$(__make_flags)[\[\e[1;32m\]\w\[\e[0m\]]$(__git_ps1 "(%s)")\$ \[$(tput sgr0)\]'
+            PS1='[\[$(tput setaf 6)\]\h\[$(tput sgr0)\]]\[$(__make_flags)\][\[$(tput bold)\]\[$(tput setaf 2)\]\w\[$(tput sgr0)]\]$(__git_ps1 "(%s)")\$ '
             ;;
     esac
 
@@ -27,15 +31,9 @@ if [ "$color_prompt" = yes ] ; then
     alias ls="ls --color=auto" # THIS BREAKS in OSX
 
 else
-    export PS1='[\u@\h \W]\$ '
+    PS1='[\u@\h \W]\$ '
 fi
 
-# Various vars
-export WINEARCH=win32
-export EDITOR="vim"
-
-# Path Additions
-export PATH=$PATH:/home/anthony/code/scripts
 
 #The 'ls' family (in all it's glory)
 ####################################
@@ -55,7 +53,6 @@ alias lp="ls++"             # https://github.com/trapd00r/ls--
 complete -cf optirun
 
 # Import all bash-completions
-#
 # Arch Linux
 [ -r /usr/share/bash-completion/bash_completion ] && {
     . /usr/share/bash-completion/bash_completion
@@ -65,10 +62,6 @@ complete -cf optirun
         . /etc/bash_completion
     }
 }
-
-# Shopt
-shopt -s histappend
-shopt -s checkwinsize
 
 # prints git branch of pwd
 __git_ps1 () 
@@ -83,7 +76,11 @@ __git_ps1 ()
 __make_flags()
 {
     local f=
-    [ -z ${SSH_CLIENT%% *} ] || f="$f\033[93ms\033[0m"
-    [ -z $VIMRUNTIME ] || f="$f\033[95mv\033[0m"
-    [ -z $f ] || printf "[%b]" "$f";
+    [ -z ${SSH_CLIENT%% *} ] || f="$f$(tput setaf 11)s"
+    [ -z $VIMRUNTIME ] || f="$f$(tput setaf 5)v"
+
+    [ -z $f ] || {
+        f="$f$(tput sgr0)"
+        printf "[%b]" "$f";
+    }
 }
