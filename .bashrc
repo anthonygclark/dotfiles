@@ -24,7 +24,7 @@ complete -cf optirun
 }
 
 # prints git branch of pwd
-__git_ps1 () 
+__git_ps1_ () 
 { 
     local b="$(git symbolic-ref HEAD 2>/dev/null)";
     if [ -n "$b" ]; then
@@ -58,7 +58,7 @@ __user_prompt()
     local TEAL=$(tput setaf 6)
     local END=$(tput sgr0)
     local BOLD=$(tput bold)
-    PS1="[\[$TEAL\]\h\[$END\]]$(__make_flags)[\[$BOLD$GREEN\]\w\[$END\]]$(__git_ps1 '(%s)')\\$ "
+    PS1="[\[$TEAL\]\h\[$END\]]$(__make_flags)[\[$BOLD$GREEN\]\w\[$END\]]\$(__git_ps1_ '(%s)')\\$ "
     PS2="\[$BLUE\]$PS2\[$END\]"
 }
 
