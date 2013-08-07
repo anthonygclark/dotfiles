@@ -20,7 +20,7 @@ if [ "$color_prompt" = yes ] ; then
 
     case $(( UID)) in
         0)  # root
-            PS1='[\[$(tput setaf 1)\]\h\[$(tput sgr0)\]]$(__make_flags)[\[$(tput bold)\]\[$(tput setaf 1\]\w\[$(tput sgr0)]\]# '
+            PS1='[\[$(tput setaf 1)\]\h\[$(tput sgr0)\]]\[$(__make_flags)\][\[$(tput bold)\]\[$(tput setaf 1)\]\w\[$(tput sgr0)]\]# '
             ;;
         *)
             PS1='[\[$(tput setaf 6)\]\h\[$(tput sgr0)\]]\[$(__make_flags)\][\[$(tput bold)\]\[$(tput setaf 2)\]\w\[$(tput sgr0)]\]$(__git_ps1 "(%s)")\$ '
