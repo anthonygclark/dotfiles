@@ -9,47 +9,7 @@
 shopt -s histappend
 shopt -s checkwinsize
 
-# To color or not to color
-color_prompt=
-
-if which tput > /dev/null && tput setaf 1 &>/dev/null; then 
-    color_prompt=yes
-fi
-
-if [ "$color_prompt" = yes ] ; then
-
-    case $(( UID)) in
-        0)  # root
-            PS1='[\[$(tput setaf 1)\]\h\[$(tput sgr0)\]]\[$(__make_flags)\][\[$(tput bold)\]\[$(tput setaf 1)\]\w\[$(tput sgr0)]\]# '
-            ;;
-        *)
-            PS1='[\[$(tput setaf 6)\]\h\[$(tput sgr0)\]]\[$(__make_flags)\][\[$(tput bold)\]\[$(tput setaf 2)\]\w\[$(tput sgr0)]\]$(__git_ps1 "(%s)")\$ '
-            ;;
-    esac
-
-    # color specific aliases
-    alias ls="ls --color=auto" # THIS BREAKS in OSX
-
-else
-    PS1='[\u@\h \W]\$ '
-fi
-
-
-#The 'ls' family (in all it's glory)
-####################################
-alias ll="ls -l --group-directories-first"
-alias la="ls -a"            # show hidden files
-alias lx="ls -lXB"          # sort by extension
-alias lk="ls -lSr"          # sort by size, biggest last
-alias lc="ls -ltcr"         # sort by and show change time, most recent last
-alias lu="ls -ltur"         # sort by and show access time, most recent last
-alias lt="ls -ltr"          # sort by date, most recent last
-alias lm="ls -al |more"     # pipe through 'more'
-alias lr="ls -lR"           # recursive ls
-alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
-alias lp="ls++"             # https://github.com/trapd00r/ls--
-
-# Custom completions Tab Complete
+# Custom completions
 complete -cf optirun
 
 # Import all bash-completions
@@ -75,12 +35,73 @@ __git_ps1 ()
 # print indicators for certain vars
 __make_flags()
 {
+    local PURPLE=$(tput setaf 5)
+    local ORANGE=$(tput setaf 11)
+    local END=$(tput sgr0)
+
     local f=
-    [ -z ${SSH_CLIENT%% *} ] || f="$f$(tput setaf 11)s"
-    [ -z $VIMRUNTIME ] || f="$f$(tput setaf 5)v"
+    [ -z ${SSH_CLIENT%% *} ] || f="$f\[$ORANGE\]s"
+    [ -z $VIMRUNTIME ] || f="$f\[$PURPLE\]v"
 
     [ -z $f ] || {
-        f="$f$(tput sgr0)"
+        f="$f\[$END\]"
         printf "[%b]" "$f";
     }
 }
+
+
+# Prompt for users.
+__user_prompt()
+{
+    local GREEN=$(tput setaf 2)
+    local BLUE=$(tput setaf 4)
+    local TEAL=$(tput setaf 6)
+    local END=$(tput sgr0)
+    local BOLD=$(tput bold)
+    PS1="[\[$TEAL\]\h\[$END\]]$(__make_flags)[\[$BOLD$GREEN\]\w\[$END\]]$(__git_ps1 '(%s)')\\$ "
+    PS2="\[$BLUE\]$PS2\[$END\]"
+}
+
+# Prompt for root user, red and red.
+__root_prompt()
+{
+    local RED=$(tput setaf 1)
+    local END=$(tput sgr0)
+    local BOLD=$(tput bold)
+    PS1="[\[$RED\]\h\[$END\]]$(__make_flags)[\[$BOLD$RED\]\w\[$END\]]# "
+}
+
+# To color or not to color
+color_prompt=
+
+if [ "$color_prompt" = "no" ] ; then
+    PS1='[\u@\h \W]\$ '
+elif which tput > /dev/null && tput setaf 1 &>/dev/null; then 
+    case $(( UID)) in
+        0)  # root
+            __root_prompt
+            ;;
+        *)
+            __user_prompt
+            ;;
+    esac
+    # color specific aliases
+    alias ls="ls --color=auto" # THIS BREAKS in OSX
+else
+    PS1='[\u@\h \W]\$ '
+fi
+
+#The 'ls' family (in all it's glory)
+####################################
+alias ll="ls -l --group-directories-first"
+alias la="ls -a"            # show hidden files
+alias lx="ls -lXB"          # sort by extension
+alias lk="ls -lSr"          # sort by size, biggest last
+alias lc="ls -ltcr"         # sort by and show change time, most recent last
+alias lu="ls -ltur"         # sort by and show access time, most recent last
+alias lt="ls -ltr"          # sort by date, most recent last
+alias lm="ls -al |more"     # pipe through 'more'
+alias lr="ls -lR"           # recursive ls
+alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
+alias lp="ls++"             # https://github.com/trapd00r/ls--
+
