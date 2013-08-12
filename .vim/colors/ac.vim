@@ -6,12 +6,11 @@
 "
 
 hi clear
+set background=dark
+
 if exists("syntax_on")
   syntax reset
 endif
-
-
-set background=dark
 
 let g:colors_name = "ac"
 
@@ -82,7 +81,14 @@ hi spellCap     guisp=#5fd700                                                   
 hi spellRare    guisp=#ff00ff                                                                   ctermbg=13
 hi spellLocal   guisp=#5c5cff                                                                   ctermbg=74
 
-hi link         Delimeter       String
+
+"hi link         Delimeter       String
+hi link         Boolean         Constant
+hi link         Tag             Identifier
+hi link         Repeat          Statement 
+hi link         Conditional     Statement
+hi link         Operator        Statement
+hi link         Keyword         Identifier
 hi link         cppSTL          Function
 hi link         cppSTLType      Identifier
 hi link         Error           Todo

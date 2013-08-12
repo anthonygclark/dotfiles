@@ -9,13 +9,15 @@ syntax on
 filetype plugin indent on
 
 set nocompatible                      " Do not accomodate vi
+set title                             " Sets title of term
 set hlsearch                          " Highlighted search enabled by default
 set noincsearch                       " Turn off incsearch
 set smartcase                         " Allows smartcase searching
 set modeline                          " Enable per-file formatting and the like
 set mouse=a                           " Mouse
+set mousemodel=popup_setpos           " Mouse options
 set foldenable                        " Enable folding
-set cursorline                        " highlight line
+"set cursorline                        " highlight line
 set number                            " Show line numbers 
 set spelllang=en                      " Spelling options
 set splitbelow splitright             " Put new windows below and right by default
@@ -32,6 +34,8 @@ set stal=4                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 set listchars+=tab:>-                 " Hidden character prefixes
 set listchars+=trail:-                " ^
+set switchbuf=useopen                 " Use open buffer for switching
+set listchars+=precedes:<,extends:<   " Show when there is text off screen
 
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
@@ -39,18 +43,30 @@ set printfont=Courier:h7              " Sets hardcopy font and size, sadly only 
 
 set vop=folds                         " (view options) only save folds
 
+set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works?
+
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
+set updatetime=30000 updatecount=100  " Swap options
 " }}}
 
 
-" Extra Tags
+" Tags Stuff
 " ---------------------------------------------
 "  {{{
-"for f in split(glob('$HOME/.vim/tags/*'), '\n')
-"    exe 'set tags+=' . f
-"endfor
+" Set this to 1 to parse tags in ~/.vim/tags/
+" This is useful for system wide libs, or glibc
+let g:find_tags = 0
+
+if g:find_tags == 1
+    for f in split(glob('$HOME/.vim/tags/*'), '\n')
+        exe 'set tags+=' . f
+    endfor
+endif
+" binary search on tags
+set tagbsearch
+
 " }}}
 
 
@@ -69,6 +85,8 @@ autocmd FileType make setlocal noet
 autocmd FileType python setlocal noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 "}}}
 
 
@@ -79,6 +97,15 @@ abbreviate #d #define
 abbreviate #i #include
 abbreviate sysout System.out.println(
 abbreviate syserr System.err.println(
+"}}}
+
+" Options
+" ----------------------------------------------
+" {{{
+let g:netrw_liststyle = 3
+let g:netrw_preview   = 1
+let g:netrw_winsize   = 30
+let g:netrw_browse_split = 3
 "}}}
 
 
@@ -93,19 +120,26 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "-----------------------------------------------
 "{{{
 " Fixes Mouse issues in rxvt-unicode
-if &term == "rxvt-unicode-256color"
+if &term =~ "rxvt*"
     set ttymouse=urxvt
 else
-    if &term == "xterm"
-        set ttymouse=xterm2
-    endif
+    "if &term == "xterm"
+     set ttymouse=xterm2
+    "endif
 endif
+
+" Screen title stuff
+" TODO set screen's title
+if &term == "screen"
+  set t_ts=k
+  set t_fs=\
+endif    
 
 " Choose color scheme
 if &term == "linux"
-    colorscheme desert                " for consoles
+    colorscheme desert           " VTs
 else
-    colorscheme ac                    " for other terminals (ie - urxvt)
+    colorscheme ac               " for other terminals (ie - urxvt)
 endif
 
 " Map Sync
@@ -116,13 +150,15 @@ endif
 
 " GUI Specific options
 if has('gui_running')
-    set go-=T                         " disable toolbar
-    set go-=r                         " disable right scrollbar
+    set go-=T                   " disable toolbar
+    set go-=r                   " disable right scrollbar
+    set go-=L                   " disable left scrollbar
+    set go+=aA                  " use OS clipboard, and more
     set guifont=Monospace\ 9
-    set lines=48 columns=80
+    set lines=48 columns=85     " window size
 else
-    set term=$TERM                    " Give vim your term settings
-    set t_Co=256                      " Assure 256 color
+    set term=$TERM              " Give vim your term settings
+    set t_Co=256                " Assure 256 color
 endif
 "}}}
 
@@ -130,8 +166,9 @@ endif
 " Key Bindings
 "-------------------------------------------------
 "{{{
-map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <F8> :TagbarToggle<CR>
+nmap <F7> :TagsGenerate!<CR>
+map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
 nmap .p :prev<CR>

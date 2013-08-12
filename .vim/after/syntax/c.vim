@@ -248,10 +248,6 @@ syn match cOperator	"/$"
 syn match cOperator "&&\|||"
 syn match cOperator	"[][]"
 
-" Preprocs
-syn keyword cDefined defined contained containedin=cDefine
-hi def link cDefined cDefine
-
 " Highlight Class and Function names
 syn match    cCustomParen    "(" contains=cParen,cCppParen
 syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen

@@ -68,7 +68,7 @@ __root_prompt()
     local RED=$(tput setaf 1)
     local END=$(tput sgr0)
     local BOLD=$(tput bold)
-    PS1="[\[$RED\]\h\[$END\]]$(__make_flags)[\[$BOLD$RED\]\w\[$END\]]# "
+    PS1="[\[$RED\]\h\[$END\]]$(__make_flags)[\[$BOLD$RED\]\w\[$END\]]\$ "
 }
 
 # To color or not to color
@@ -77,7 +77,7 @@ color_prompt=
 if [ "$color_prompt" = "no" ] ; then
     PS1='[\u@\h \W]\$ '
 elif which tput > /dev/null && tput setaf 1 &>/dev/null; then 
-    case $(( UID)) in
+    case $((UID)) in
         0)  # root
             __root_prompt
             ;;
