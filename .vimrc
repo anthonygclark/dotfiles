@@ -48,7 +48,7 @@ set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
-set updatetime=30000 updatecount=100  " Swap options
+"set updatetime=30000 updatecount=100  " Swap options
 " }}}
 
 

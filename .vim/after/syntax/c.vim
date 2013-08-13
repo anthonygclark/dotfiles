@@ -255,7 +255,7 @@ syn match    cCustomScope    "::"
 syn match    cCustomClass    "\w\+\s*::\w\+\s*" contains=cCustomScope,cCustomFunc
 
 hi def link cCustomClass Special
-hi def link cCustomFunc  function
+hi def link cCustomFunc  Function
 
 " Delimiters
 syn match cDelimiter    "[();\\]"
