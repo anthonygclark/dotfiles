@@ -181,6 +181,7 @@ nmap .L :set list!<CR>
 nmap .P :set paste!<CR>
 nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
+nmap .mm :make! \| copen<CR><CR>
 
 " X11 clipboard access, There must be a better way...
 " ,pp to paste
