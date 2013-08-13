@@ -55,19 +55,20 @@ hi WarningMsg   guifg=#ff5f5f                                                   
 hi Number       guifg=#ff5f5f                                                     ctermfg=203
 hi MatchParen   guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
 hi Comment      guifg=#585858                                                     ctermfg=240
-hi Constant     guifg=#ff5f5f   gui=NONE                        cterm=NONE        ctermfg=203
+hi Constant     guifg=#ff5f5f   gui=BOLD                        cterm=BOLD        ctermfg=203
 hi String       guifg=#d7af5f                                                     ctermfg=179  
 hi Identifier   guifg=#6d9cbe   gui=BOLD                        cterm=BOLD        ctermfg=74
+hi Special      guifg=#6d9cbe   guibg=#303030                                     ctermfg=74    ctermbg=236
 hi Statement    guifg=#5fafaf   gui=BOLD                        cterm=BOLD        ctermfg=73
 hi PreCondit    guifg=#767676   gui=BOLD                        cterm=BOLD        ctermfg=243
 hi PreProc      guifg=#ffffff   gui=BOLD                        cterm=BOLD        ctermfg=231
 hi Type         guifg=#a4c161   gui=BOLD                        cterm=BOLD        ctermfg=149
-hi Special      guifg=#d7af5f                                                     ctermfg=179
 hi Underlined   guifg=#ad7fa8   gui=underline                   cterm=underline   ctermfg=13
 hi Directory    guifg=#6d9cbe                                                     ctermfg=74
 hi Ignore       guifg=#7f7f7f                                                     ctermfg=8
 hi Todo         guifg=#FFFFFF   guibg=#ff5f5f   gui=BOLD        cterm=BOLD        ctermfg=231   ctermbg=203
 hi Function     guifg=#FFFFFF                   gui=BOLD        cterm=BOLD        ctermfg=255
+hi Delimiter    guifg=#d7af5f                                                     ctermfg=179
 
 hi WildMenu     guifg=#a4c161   guibg=#444444   gui=NONE        cterm=NONE        ctermfg=149   ctermbg=238
 
@@ -81,31 +82,28 @@ hi spellCap     guisp=#5fd700                                                   
 hi spellRare    guisp=#ff00ff                                                                   ctermbg=13
 hi spellLocal   guisp=#5c5cff                                                                   ctermbg=74
 
-
-"hi link         Delimeter       String
-hi link         Boolean         Constant
-hi link         Tag             Identifier
-hi link         Repeat          Statement 
-hi link         Conditional     Statement
-hi link         Operator        Statement
-hi link         Keyword         Identifier
-hi link         cppSTL          Function
-hi link         cppSTLType      Identifier
-hi link         Error           Todo
-hi link         Character       Number
-hi link         rubySymbol      Number
-hi link         htmlTag         htmlEndTag
-hi link         htmlLink        Underlined
-hi link         pythonFunction  Identifier
-hi link         CursorIM        Cursor
-hi link         VisualNOS       Visual
-hi link         xmlTag          Identifier
-hi link         xmlTagName      Identifier
-hi link         shDeref         Identifier
-hi link         shVariable      Function
-hi link         rubySharpBang   Special
-hi link         perlSharpBang   Special
-hi link         schemeFunc      Statement
+hi link Tag             Identifier
+hi link Repeat          Statement 
+hi link Conditional     Statement
+hi link Operator        Statement
+hi link Keyword         Identifier
+hi link cppSTL          Function
+hi link cppSTLType      Identifier
+hi link Error           Todo
+hi link Character       Number
+hi link rubySymbol      Number
+hi link htmlTag         htmlEndTag
+hi link htmlLink        Underlined
+hi link pythonFunction  Identifier
+hi link CursorIM        Cursor
+hi link VisualNOS       Visual
+hi link xmlTag          Identifier
+hi link xmlTagName      Identifier
+hi link shDeref         Identifier
+hi link shVariable      Function
+hi link rubySharpBang   Special
+hi link perlSharpBang   Special
+hi link schemeFunc      Statement
 
 hi TabLine      guifg=#9e9e9e   guibg=#1c1c1c   gui=NONE        cterm=NONE        ctermfg=247   ctermbg=234
 hi TabLineFill  guifg=#7f7f7f   guibg=#1c1c1c   gui=NONE        cterm=NONE        ctermfg=8     ctermbg=234

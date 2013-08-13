@@ -252,10 +252,10 @@ syn match cOperator	"[][]"
 syn match    cCustomParen    "(" contains=cParen,cCppParen
 syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
 syn match    cCustomScope    "::"
-syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
+syn match    cCustomClass    "\w\+\s*::\w\+\s*" contains=cCustomScope,cCustomFunc
 
-hi def link cCustomFunc  Function
-hi def link cCustomClass Function
+hi def link cCustomClass Special
+hi def link cCustomFunc  function
 
 " Delimiters
 syn match cDelimiter    "[();\\]"
