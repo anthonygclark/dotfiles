@@ -58,7 +58,7 @@ hi Comment      guifg=#585858                                                   
 hi Constant     guifg=#ff5f5f   gui=BOLD                        cterm=BOLD        ctermfg=203
 hi String       guifg=#d7af5f                                                     ctermfg=179  
 hi Identifier   guifg=#6d9cbe   gui=BOLD                        cterm=BOLD        ctermfg=74
-hi Special      guifg=#6d9cbe   guibg=#303030                                     ctermfg=74    ctermbg=236
+hi Special      guifg=#6d9cbe                                                     ctermfg=74
 hi Statement    guifg=#5fafaf   gui=BOLD                        cterm=BOLD        ctermfg=73
 hi PreCondit    guifg=#767676   gui=BOLD                        cterm=BOLD        ctermfg=243
 hi PreProc      guifg=#ffffff   gui=BOLD                        cterm=BOLD        ctermfg=231
