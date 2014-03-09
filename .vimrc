@@ -84,6 +84,7 @@ set completeopt=menuone,menu,longest,preview
 autocmd FileType make setlocal noet 
 autocmd FileType python setlocal noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
+autocmd FileType cpp set path+=/usr/include/c++/4.8.2
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
@@ -98,6 +99,7 @@ abbreviate #i #include
 abbreviate sysout System.out.println(
 abbreviate syserr System.err.println(
 "}}}
+
 
 " Options
 " ----------------------------------------------
