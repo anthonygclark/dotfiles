@@ -82,7 +82,7 @@ set completeopt=menuone,menu,longest,preview
 "-----------------------------------------------
 "{{{
 autocmd FileType make setlocal noet 
-autocmd FileType python setlocal noet
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/4.8.2
 autocmd FileType python set omnifunc=pythoncomplete#Complete
