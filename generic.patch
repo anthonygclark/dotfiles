@@ -15,19 +15,6 @@ index 33713d4..ee10847 100644
    ign = ls-files -o -i --exclude-standard
 -[push]
 -	default = simple
-diff --git a/.vimrc b/.vimrc
-index b0cd2e9..3c6dbc1 100644
---- a/.vimrc
-+++ b/.vimrc
-@@ -105,7 +105,7 @@ endif
- if &term == "linux"
-     colorscheme desert                " for consoles
- else
--    colorscheme ac                    " for other terminals (ie - urxvt)
-+    colorscheme default               " for other terminals (ie - urxvt)
- endif
- 
- " Map Sync
 diff --git a/.xinitrc b/.xinitrc
 index 1d81c54..a5a3527 100755
 --- a/.xinitrc
