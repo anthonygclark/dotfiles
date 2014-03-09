@@ -5,80 +5,98 @@
 # old dotfiles
 
 # Change into the script dir
-#script_dir=$(dirname $(readlink -m $0))
-#echo "Changing dirs to $script_dir"
-#cd $script_dir
-#
-#
-## Some vars
-#_date=$(date +%F_%H_%M_%S)
-#out="$HOME/dotfiles_backup_$_date.tar"
-#declare -A f # New
-#declare -A e # Old
-#
-#
-## Fail func, just prints fail string
-#fail() {
-#    echo "Failure: $1"
-#    exit 1
-#}
-#
-#find .
-#exit 1
-#
-## Build array of these dotfiles
-#for i in $(ls -a | grep -v -E '(\.git$|\.gitignore|*.patch|README|install.sh|\.$)'); do
-#    f[${#f[@]}]=$i
-#done
-#
-#
-## Build array of dotfiles that match the current dotfiles
-## for backup
-#for i in ${f[@]}; do
-#    if [ -z $(ls -a $HOME | grep -x $i) ]; then
-#        continue
-#    fi
-#
-#    if [[ $i == ".config" ]]; then
-#        echo "Found old dotfile: .config (not removing)"
-#        continue
-#    fi
-#
-#    echo "Found old dotfile: $i"
-#    e[${#e[@]}]="$i"
-#done
-#
-## if we found old dotfiles...
-#[[ -z a${e} ]] || {    
-#    # backup
-#    cd $HOME
-#    tar -cf $out ${e[@]} &>/dev/null || fail "tar"
-#    echo "[+] Backing up old dotfiles to $out"
-#    cd $script_dir
-#
-#    # Delete
-#    for i in ${e[@]}; do rm -r $HOME/$i || fail "remove"; done
-#    echo "[+] Deleted old dotfiles."
-#}
-#
-#
-## Install
-#for i in ${f[@]}; do 
-#    cp -r $i $HOME/ || fail "copy"
-#done
-#echo "[+] New dotfiles installed"
-#
-#
-## The generic option removed my user info from
-## gitconfig and remove my color prefs from .vimrc
-#cd $HOME
-#echo -ne "Make these dotfiles generic? [y/n]?: "
-#read ans
-#if [ ${ans,,} == "y" ] ; then
-#    patch -p1 < $script_dir/generic.patch || fail "patch"
-#else
-#    echo "Aborting Patch"
-#fi
-#
-#
-#exit 0
+script_dir=$(dirname $(readlink -m $0))
+cd $script_dir
+
+# Some vars
+dest="$HOME"
+_date=$(date +%F_%H_%M_%S)
+out="dotfiles_backup_$_date.tar"
+
+# Fail func, just prints fail string
+fail() {
+    echo "Failure: $1"
+    exit 1
+}
+
+dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
+    ! -iname 'install.sh' \
+    ! -iname '.gitignore' \
+    ! -iname '*.patch' \
+    ! -iname '.git' \
+    ! -iname 'README'))
+
+_dirs=()
+
+
+# Build array of these dotfiles
+for i in ${dotfiles[@]}; do
+    if [[ $i == './.git' ]]; then continue; fi
+    if [[ $i == '.' ]]; then continue; fi
+    if [[ $i =~ './test' ]]; then continue; fi
+
+    if [[ -d $i ]]; then
+        _dirs[${#_dirs[@]}]=$i
+        continue;
+    fi
+
+    f[${#f[@]}]=${i#./}
+done
+
+
+# Build array of dotfiles that match the current dotfiles for backup
+for i in ${f[@]}; do
+    if [[ ! -e $dest/$i ]]; then
+        continue
+    fi
+
+    echo "Found old dotfile: $dest/$i"
+    e[${#e[@]}]=$i
+done
+
+
+# Backup and remove old dotfiles
+if [[ ! -z ${e[@]} ]]; then
+    cd $dest
+    
+    # Backup
+    tar -cf $out ${e[@]} || fail "tar"
+    echo "[+] Backing up old dotfiles to $out"
+
+    # Delete
+    for i in ${e[@]}; do 
+        rm -r $i || fail "remove, please restore from backup"
+    done
+
+    echo "[+] Deleted old dotfiles."
+fi
+
+
+cd $script_dir
+
+# mkdirs 
+for i in ${_dirs[@]}; do
+    mkdir -p $dest/$i || fail "mkdir -p"
+done
+
+# install files
+for i in ${f[@]}; do 
+    cp -r $i $dest/$(dirname $i) || fail "copy"
+done
+echo "[+] New dotfiles installed"
+
+
+# The generic option removed my user info from
+# gitconfig and remove my color prefs from .vimrc
+# and probably more
+cd $dest
+echo -ne "Make these dotfiles generic? [y/n]?: "
+read ans
+if [ ${ans,,} == "y" ] ; then
+    patch -p1 < $script_dir/generic.patch || fail "patch"
+else
+    echo "Aborting Patch"
+fi
+
+
+exit 0
