@@ -9,4 +9,4 @@
 # exec startxfce4
 # ...or the Window Manager of your choice
 
-source /home/anthony/code/scripts/xinitrc
+source $HOME/code/scripts/xinitrc
