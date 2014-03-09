@@ -1,10 +1,8 @@
 [user]
     name = Anthony Clark
-    email = clark.anthony.g@gmail.com
+    email = aclark@bbn.com
 [color]
     ui = auto
-[receive]
-    denyNonFastForwards = true
 [color "branch"]
     current = yellow reverse
     local = yellow
@@ -23,5 +21,8 @@
     lla = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-files
     ign = ls-files -o -i --exclude-standard
+    up = !git remote update --prune && git merge --ff-only @{u}
+    rebaseu = rebase --preserve-merges @{u}
+    logu = log -p @{u}..
 [push]
     default = simple
