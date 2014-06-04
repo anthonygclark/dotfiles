@@ -64,7 +64,7 @@ if [[ ! -z ${e[@]} ]]; then
 
     # Delete
     for i in ${e[@]}; do 
-        rm -r $i || fail "remove, please restore from backup"
+        rm -fr "$i" || fail "remove, please restore from backup"
     done
 
     echo "[+] Deleted old dotfiles."
