@@ -6,7 +6,6 @@
 "---------------------------------------------
 " {{{
 syntax on
-filetype plugin indent on
 
 set nocompatible                      " Do not accomodate vi
 set title                             " Sets title of term
@@ -36,7 +35,7 @@ set listchars+=tab:>-                 " Hidden character prefixes
 set listchars+=trail:-                " ^
 set switchbuf=useopen                 " Use open buffer for switching
 set listchars+=precedes:<,extends:<   " Show when there is text off screen
-
+set printencoding={utf-8}             " For hardcopies
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
@@ -84,10 +83,25 @@ set completeopt=menuone,menu,longest,preview
 autocmd FileType make setlocal noet 
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
-autocmd FileType cpp set path+=/usr/include/c++/4.8.2
+autocmd FileType cpp set path+=/usr/include/c++/*
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+
+"set cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,ps,ts,+s,c3,C0,/0,(0,us,U0,u0,w0,W1s,k0,m0,j0,J0,)20,*70,#0
+set cinoptions=:0,g0,t0,(0,u0
+
+augroup Binary
+    au!
+    au BufReadPre  *.bin let &bin=1
+    au BufReadPost *.bin if &bin | %!xxd
+    au BufReadPost *.bin set ft=xxd | endif
+    au BufWritePre *.bin if &bin | %!xxd -r
+    au BufWritePre *.bin endif
+    au BufWritePost *.bin if &bin | %!xxd
+    au BufWritePost *.bin set nomod | endif
+augroup END
+
 "}}}
 
 
@@ -121,28 +135,6 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 " Conditionals
 "-----------------------------------------------
 "{{{
-" Fixes Mouse issues in rxvt-unicode
-if &term =~ "rxvt*"
-    set ttymouse=urxvt
-else
-    "if &term == "xterm"
-     set ttymouse=xterm2
-    "endif
-endif
-
-" Screen title stuff
-" TODO set screen's title
-if &term == "screen"
-  set t_ts=k
-  set t_fs=\
-endif    
-
-" Choose color scheme
-if &term == "linux"
-    colorscheme desert           " VTs
-else
-    colorscheme ac               " for other terminals (ie - urxvt)
-endif
 
 " Map Sync
 if has('syntax')
@@ -150,7 +142,6 @@ if has('syntax')
     nmap .SS :syn sync fromstart
 endif
 
-" GUI Specific options
 if has('gui_running')
     set go-=T                   " disable toolbar
     set go-=r                   " disable right scrollbar
@@ -158,18 +149,61 @@ if has('gui_running')
     set go+=aA                  " use OS clipboard, and more
     set guifont=Monospace\ 9
     set lines=48 columns=85     " window size
+
+    colorscheme ac
 else
     set term=$TERM              " Give vim your term settings
     set t_Co=256                " Assure 256 color
+    " Choose color scheme
+    "
+    "" Fixes Mouse issues in rxvt-unicode
+    if &term =~ "rxvt*"
+        set ttymouse=urxvt
+    else
+        "if &term == "xterm"
+        set ttymouse=xterm2
+        "endif
+    endif
+    
+    if &term == "linux"
+        colorscheme desert
+    else
+        colorscheme ac
+    endif
+
+    " Screen title stuff
+    " TODO set screen's title
+    if &term =~ "screen*"
+        set t_ts=k
+        set t_fs=\
+    endif    
+
 endif
+
+"}}}
+
+
+" Plugin Stuff
+" -----------------------------------------------
+"  {{{
+"  Vundle
+filetype plugin indent off
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Plugin 'gmarik/vundle'
+Bundle 'majutsushi/tagbar'
+Bundle 'DoxygenToolkit.vim'
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :Dox<CR>
+
+filetype plugin indent on
 "}}}
 
 
 " Key Bindings
 "-------------------------------------------------
 "{{{
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :TagsGenerate!<CR>
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -184,6 +218,11 @@ nmap .P :set paste!<CR>
 nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
 nmap .mm :make! \| copen<CR><CR>
+map ,a o<ESC>:r!date +'\%A, \%B \%d, \%Y'<CR>:r!date +'\%A, \%B \%d, \%Y' \| sed 's/./-/g'<CR>A<CR><ESC>
+map ,o o[ ] 
+map ,O O[ ] 
+map ,x :s/^\[ \]/[x]/<CR>
+map ,X :s/^\[x\]/[ ]/<CR>
 
 " X11 clipboard access, There must be a better way...
 " ,pp to paste
@@ -241,6 +280,7 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 "}}}
+
 
 
 " vim: foldmethod=marker : 

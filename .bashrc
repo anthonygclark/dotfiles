@@ -104,4 +104,4 @@ alias lm="ls -al |more"     # pipe through 'more'
 alias lr="ls -lR"           # recursive ls
 alias lsr="tree -Csu"       # nice alternative to 'recursive ls'
 alias lp="ls++"             # https://github.com/trapd00r/ls--
-
+alias sdate="date +%F_%H_%M_%S" # unix filename friendly date format
