@@ -89,14 +89,18 @@ echo "[+] New dotfiles installed"
 # The generic option removed my user info from
 # gitconfig and remove my color prefs from .vimrc
 # and probably more
-cd $dest
-echo -ne "Make these dotfiles generic? [y/n]?: "
-read ans
-if [ ${ans,,} == "y" ] ; then
-    patch -p1 < $script_dir/generic.patch || fail "patch"
-else
-    echo "Aborting Patch"
+if [[ -e ${script_dir}/generic.patch ]]; then
+    cd $dest
+    echo -ne "Make these dotfiles generic? [y/n]?: "
+    read ans
+    if [ ${ans,,} == "y" ] ; then
+        patch -p1 < $script_dir/generic.patch || fail "patch"
+    else
+        echo "Aborting Patch"
+    fi
 fi
 
+# update bundles
+vim +BundleInstall +qall
 
 exit 0
