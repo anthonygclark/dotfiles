@@ -191,9 +191,9 @@ filetype plugin indent off
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
 Bundle 'majutsushi/tagbar'
 Bundle 'DoxygenToolkit.vim'
+
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
 

@@ -101,6 +101,8 @@ if [[ -e ${script_dir}/generic.patch ]]; then
 fi
 
 # update bundles
+git submodule init
+git submodule update
 vim +BundleInstall +qall
 
 exit 0
