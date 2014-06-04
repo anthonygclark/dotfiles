@@ -189,7 +189,7 @@ endif
 "  Vundle
 filetype plugin indent off
 set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Bundle 'majutsushi/tagbar'
@@ -197,6 +197,7 @@ Bundle 'DoxygenToolkit.vim'
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
 
+call vundle#end()
 filetype plugin indent on
 "}}}
 
