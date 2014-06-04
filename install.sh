@@ -21,9 +21,8 @@ fail() {
 
 dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
     ! -iname 'install.sh' \
-    ! -iname '.gitignore' \
     ! -iname '*.patch' \
-    ! -iname '.git' \
+    ! -iname '.git*' \
     ! -iname 'README'))
 
 _dirs=()
@@ -31,9 +30,9 @@ _dirs=()
 
 # Build array of these dotfiles
 for i in ${dotfiles[@]}; do
-    if [[ $i == './.git' ]]; then continue; fi
-    if [[ $i == '.' ]]; then continue; fi
-    if [[ $i =~ './test' ]]; then continue; fi
+    if [[ $i =~ ".git" ]]; then continue; fi
+    if [[ $i == "." ]]; then continue; fi
+    if [[ $i == ".." ]]; then continue; fi
 
     if [[ -d $i ]]; then
         _dirs[${#_dirs[@]}]=$i
