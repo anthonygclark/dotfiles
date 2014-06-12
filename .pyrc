@@ -1,3 +1,4 @@
+# vim: set ft=python
 import sys
 
 COLOR_TEMPLATES = {
@@ -28,3 +29,6 @@ sys.ps1 = '%s>%s>%s>%s ' % (_color_at('LightBlue'),
 		_color_at('LightGreen'), _color_at('LightPurple'), _color_at('Normal'))
 
 sys.ps2 = '%s...%s ' % (_color_at('DarkGray'), _color_at('Normal'))
+
+def __b(x):
+    return bin(x)[2:].rjust(32,'0')

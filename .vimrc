@@ -39,11 +39,8 @@ set printencoding={utf-8}             " For hardcopies
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
-
 set vop=folds                         " (view options) only save folds
-
 set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works?
-
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
@@ -77,16 +74,52 @@ set completeopt=menuone,menu,longest,preview
 "}}}
 
 
+" Plugin Stuff
+" -----------------------------------------------
+"  {{{
+"  Vundle
+filetype plugin indent off
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#begin()
+
+Plugin 'majutsushi/tagbar'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'fugitive.vim'
+Plugin 'Tabular'
+
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :Dox<CR>
+
+let mapleader = ","
+
+" Fugitive
+map <leader>gs :Gstatus<CR>
+map <leader>gd :Gdiff<CR>
+map <leader>gw :Gwrite<CR>
+map <leader>gr :Gread<CR>
+
+" Tabularize
+map <leader>t= :Tabularize /=<CR>
+map <leader>t: :Tabularize /:<CR>
+map <leader>t, :Tabularize /,<CR>
+map <leader>t\| :Tabularize /\|<CR>
+
+
+call vundle#end()
+filetype plugin indent on
+"}}}
+
+
 " File Specific Settings
 "-----------------------------------------------
 "{{{
 autocmd FileType make setlocal noet 
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/*
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+autocmd FileType python set tabstop=4 shiftwidth=4 noet
 
 "set cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,ps,ts,+s,c3,C0,/0,(0,us,U0,u0,w0,W1s,k0,m0,j0,J0,)20,*70,#0
 set cinoptions=:0,g0,t0,(0,u0
@@ -183,24 +216,6 @@ endif
 "}}}
 
 
-" Plugin Stuff
-" -----------------------------------------------
-"  {{{
-"  Vundle
-filetype plugin indent off
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#begin()
-
-Bundle 'majutsushi/tagbar'
-Bundle 'DoxygenToolkit.vim'
-
-nmap <F8> :TagbarToggle<CR>
-nmap <F9> :Dox<CR>
-
-call vundle#end()
-filetype plugin indent on
-"}}}
-
 
 " Key Bindings
 "-------------------------------------------------
@@ -219,11 +234,6 @@ nmap .P :set paste!<CR>
 nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
 nmap .mm :make! \| copen<CR><CR>
-map ,a o<ESC>:r!date +'\%A, \%B \%d, \%Y'<CR>:r!date +'\%A, \%B \%d, \%Y' \| sed 's/./-/g'<CR>A<CR><ESC>
-map ,o o[ ] 
-map ,O O[ ] 
-map ,x :s/^\[ \]/[x]/<CR>
-map ,X :s/^\[x\]/[ ]/<CR>
 
 " X11 clipboard access, There must be a better way...
 " ,pp to paste
@@ -234,9 +244,7 @@ map <leader>pp :r!xsel -b<CR><CR>
 
 " Tabbing
 nmap .tn :tabnext<CR>
-map <C-a> :tabnext<CR>
 map .tp :tabprevious<CR>
-map <C-z> :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
 
 " Folding, highlight text and press space to fold / unfold
