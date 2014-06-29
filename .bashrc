@@ -4,6 +4,7 @@
 #
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+[[ $TERM =~ "xterm" ]] && TERM=xterm-256color
 
 # Shopt
 shopt -s histappend
@@ -26,13 +27,17 @@ __git_ps1_ ()
 # print indicators for certain vars
 __make_flags()
 {
+    local BLUE=$(tput setaf 4)
+    local GREEN=$(tput setaf 2)
     local PURPLE=$(tput setaf 5)
-    local ORANGE=$(tput setaf 11)
+    local ORANGE=$(tput setaf 3)
     local END=$(tput sgr0)
 
     local f=
-    [[ -z ${SSH_CLIENT%% *} ]]  || f="$f\[$ORANGE\]s"
-    [[ -z $VIMRUNTIME ]]        || f="$f\[$PURPLE\]v"
+    [[ ! -z ${SSH_CLIENT%% *} ]]  && f="$f\[$ORANGE\]s"
+    [[ ! -z $VIMRUNTIME ]]        && f="$f\[$PURPLE\]v"
+    [[ ! -z $STY        ]]        && f="$f\[$GREEN\]n"
+    [[ ! -z $TMUX       ]]        && f="$f\[$BLUE\]t"
 
     [[ -z $f ]] || {
         f="$f\[$END\]"
