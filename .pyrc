@@ -1,4 +1,4 @@
-# vim: set ft=python
+# vim: ft=python
 import sys
 
 COLOR_TEMPLATES = {
