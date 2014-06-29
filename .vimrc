@@ -74,6 +74,14 @@ set completeopt=menuone,menu,longest,preview
 "}}}
 
 
+" Runtime Stuff
+" -----------------------------------------------
+"  {{{
+runtime ftplugin/man.vim
+colorscheme ac
+" }}}
+
+
 " Plugin Stuff
 " -----------------------------------------------
 "  {{{
@@ -182,8 +190,9 @@ if has('gui_running')
     set go+=aA                  " use OS clipboard, and more
     set guifont=Monospace\ 9
     set lines=48 columns=85     " window size
+    
+    nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
 
-    colorscheme ac
 else
     set term=$TERM              " Give vim your term settings
     set t_Co=256                " Assure 256 color
@@ -200,8 +209,6 @@ else
     
     if &term == "linux"
         colorscheme desert
-    else
-        colorscheme ac
     endif
 
     " Screen title stuff
