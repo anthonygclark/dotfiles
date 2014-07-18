@@ -107,10 +107,13 @@ map <leader>gw :Gwrite<CR>
 map <leader>gr :Gread<CR>
 
 " Tabularize
-map <leader>t= :Tabularize /=<CR>
-map <leader>t: :Tabularize /:<CR>
-map <leader>t, :Tabularize /,<CR>
+map <leader>t=  :Tabularize /=<CR>
+map <leader>t:  :Tabularize /:<CR>
+map <leader>t,  :Tabularize /,<CR>
 map <leader>t\| :Tabularize /\|<CR>
+map <leader>t\\ :Tabularize /\\$<CR>
+map <leader>t<< :Tabularize /<<<CR>
+map <leader>t>> :Tabularize />><CR>
 
 
 call vundle#end()
@@ -190,7 +193,7 @@ if has('gui_running')
     set go+=aA                  " use OS clipboard, and more
     set guifont=Monospace\ 9
     set lines=48 columns=85     " window size
-    
+
     nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
 
 else
@@ -206,7 +209,7 @@ else
         set ttymouse=xterm2
         "endif
     endif
-    
+
     if &term == "linux"
         colorscheme desert
     endif
@@ -295,6 +298,27 @@ function! AppendModeline()
     call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+
+" toggles the quickfix window.
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+    else
+        execute "copen "
+    endif
+endfunction
+
+" used to track the quickfix window
+augroup QFixToggle
+    autocmd!
+    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+augroup END
+
+nnoremap <silent> <F7> :QFix<CR>
+
 "}}}
 
 
