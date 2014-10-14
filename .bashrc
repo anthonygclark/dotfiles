@@ -7,7 +7,7 @@
 [[ $TERM =~ "xterm" ]] && TERM=xterm-256color
 
 # Shopt
-shopt -s histappend
+#shopt -s histappend
 shopt -s checkwinsize
 
 # Import all bash-completions

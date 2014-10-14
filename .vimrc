@@ -44,6 +44,7 @@ set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
+let g:html_dynamic_folds = 1
 "set updatetime=30000 updatecount=100  " Swap options
 " }}}
 
@@ -199,17 +200,15 @@ if has('gui_running')
 else
     set term=$TERM              " Give vim your term settings
     set t_Co=256                " Assure 256 color
-    " Choose color scheme
-    "
-    "" Fixes Mouse issues in rxvt-unicode
+    
+    " Fixes Mouse issues in rxvt-unicode
     if &term =~ "rxvt*"
         set ttymouse=urxvt
     else
-        "if &term == "xterm"
         set ttymouse=xterm2
-        "endif
     endif
 
+    " When in a limited tty
     if &term == "linux"
         colorscheme desert
     endif
@@ -245,6 +244,9 @@ nmap .W :set nowrap!<CR>
 nmap .C :set invacd<CR>
 nmap .mm :make! \| copen<CR><CR>
 
+" insert mode binding for correcting the last misspelled word.
+imap ^L <Esc>[s1z=`]a
+
 " X11 clipboard access, There must be a better way...
 " ,pp to paste
 " ,cc to copy
@@ -256,6 +258,9 @@ map <leader>pp :r!xsel -b<CR><CR>
 nmap .tn :tabnext<CR>
 map .tp :tabprevious<CR>
 nmap .tt :Te .<CR><CR>
+nmap .vt :Ve! .<CR><CR>
+nmap .st :Se! .<CR><CR>
+
 
 " Folding, highlight text and press space to fold / unfold
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
