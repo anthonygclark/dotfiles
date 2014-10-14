@@ -248,25 +248,37 @@ syn match cOperator	"/$"
 syn match cOperator "&&\|||"
 syn match cOperator	"[][]"
 
+" Preprocs
+syn keyword cDefined defined contained containedin=cDefine
+hi def link cDefined cDefine
+
+" Functions
+syn match cUserFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine
+syn match cUserFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimiter,cOperator
+
+hi def link cUserFunction cFunction
+hi def link cUserFunctionPointer cFunction
+
 " Highlight Class and Function names
-syn match    cCustomParen    "(" contains=cParen,cCppParen
-syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
 syn match    cCustomScope    "::"
-syn match    cCustomClass    "\w\+\s*::\w\+\s*" contains=cCustomScope,cCustomFunc
+syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope,cFunction
+"syn match    cCustomClass    "\v\w+%(::)+" contains=cCustomScope,cFunction
 
 hi def link cCustomClass Special
-hi def link cCustomFunc  Function
 
 " Delimiters
 syn match cDelimiter    "[();\\]"
+" foldmethod=syntax fix, courtesy of Ivan Freitas
 syn match cBraces display "[{}]"
 
 " Booleans
 syn keyword cBoolean true false TRUE FALSE
 
+
 " Links
 hi def link cFunction Function
 hi def link cIdentifier Identifier
 hi def link cDelimiter Delimiter
+" foldmethod=syntax fix, courtesy of Ivan Freitas
 hi def link cBraces Delimiter
 hi def link cBoolean Boolean
