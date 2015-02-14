@@ -44,6 +44,7 @@ set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
+let mapleader = ","                   " Command leader
 let g:html_dynamic_folds = 1
 "set updatetime=30000 updatecount=100  " Swap options
 " }}}
@@ -78,7 +79,6 @@ set completeopt=menuone,menu,longest,preview
 " Runtime Stuff
 " -----------------------------------------------
 "  {{{
-runtime ftplugin/man.vim
 colorscheme ac
 " }}}
 
@@ -86,11 +86,15 @@ colorscheme ac
 " Plugin Stuff
 " -----------------------------------------------
 "  {{{
-"  Vundle
+" Core plugins
+runtime ftplugin/man.vim
+" Vundle plugins
 filetype plugin indent off
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#begin()
 
+Plugin 'gmarik/vundle.vim'
+Plugin 'scrooloose/nerdtree.git'
 Plugin 'majutsushi/tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
@@ -98,8 +102,6 @@ Plugin 'Tabular'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
-
-let mapleader = ","
 
 " Fugitive
 map <leader>gs :Gstatus<CR>
@@ -115,12 +117,16 @@ map <leader>t\| :Tabularize /\|<CR>
 map <leader>t\\ :Tabularize /\\$<CR>
 map <leader>t<< :Tabularize /<<<CR>
 map <leader>t>> :Tabularize />><CR>
+map <leader>t} :Tabularize /}<CR>
+map <leader>t{ :Tabularize /{<CR>
 
+" Nerdtree
+map <leader>ntt :NERDTreeToggle<CR>
 
 call vundle#end()
+
 filetype plugin indent on
 "}}}
-
 
 " File Specific Settings
 "-----------------------------------------------
@@ -146,7 +152,6 @@ augroup Binary
     au BufWritePost *.bin if &bin | %!xxd
     au BufWritePost *.bin set nomod | endif
 augroup END
-
 "}}}
 
 
@@ -230,6 +235,7 @@ endif
 "-------------------------------------------------
 "{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
+nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
 nmap .p :prev<CR>
