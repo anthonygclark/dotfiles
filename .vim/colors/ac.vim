@@ -46,14 +46,14 @@ hi ModeMsg      guifg=#d7af5f                                                   
 hi MoreMsg      guifg=#d7af5f                   gui=NONE                          ctermfg=179
 hi Visual       guifg=#a8a8a8   guibg=#444444   gui=NONE        cterm=NONE        ctermfg=248   ctermbg=238
 hi VisualNOS    guifg=#FFFFFF   guibg=#005f87   gui=NONE        cterm=NONE        ctermfg=231   ctermbg=24
-hi IncSearch    guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
-hi Search       guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
+hi IncSearch    guibg=#af5fd7   guifg=#FFFFFF                                     ctermfg=231   ctermbg=134
+hi Search       guibg=#af5fd7   guifg=#FFFFFF                                     ctermfg=231   ctermbg=134
 hi SpecialKey   guifg=#7f7f7f                                                     ctermfg=8
 hi Title        guifg=#ff5f5f                                                     ctermfg=203
 hi WarningMsg   guifg=#ff5f5f                                                     ctermfg=203
 
 hi Number       guifg=#ff5f5f                                                     ctermfg=203
-hi MatchParen   guibg=#ad7fa8   guifg=#FFFFFF                                     ctermfg=231   ctermbg=13
+hi MatchParen   guibg=#af5fd7   guifg=#FFFFFF                                     ctermfg=231   ctermbg=134
 hi Comment      guifg=#585858                                                     ctermfg=240
 hi Constant     guifg=#ff5f5f   gui=BOLD                        cterm=BOLD        ctermfg=203
 hi String       guifg=#d7af5f                                                     ctermfg=179  
@@ -63,7 +63,7 @@ hi Statement    guifg=#5fafaf   gui=BOLD                        cterm=BOLD      
 hi PreCondit    guifg=#767676   gui=BOLD                        cterm=BOLD        ctermfg=243
 hi PreProc      guifg=#ffffff   gui=BOLD                        cterm=BOLD        ctermfg=231
 hi Type         guifg=#a4c161   gui=BOLD                        cterm=BOLD        ctermfg=149
-hi Underlined   guifg=#ad7fa8   gui=underline                   cterm=underline   ctermfg=13
+hi Underlined   guifg=#af5fd7   gui=underline                   cterm=underline   ctermfg=134
 hi Directory    guifg=#6d9cbe                                                     ctermfg=74
 hi Ignore       guifg=#7f7f7f                                                     ctermfg=8
 hi Todo         guifg=#FFFFFF   guibg=#ff5f5f   gui=BOLD        cterm=BOLD        ctermfg=231   ctermbg=203
@@ -79,7 +79,7 @@ hi PmenuSbar    guibg=#444444   gui=BOLD                        cterm=BOLD      
 
 hi spellBad     guisp=#ffaf5f                                                                   ctermbg=215
 hi spellCap     guisp=#5fd700                                                                   ctermbg=76
-hi spellRare    guisp=#ff00ff                                                                   ctermbg=13
+hi spellRare    guisp=#ff00ff                                                                   ctermbg=134
 hi spellLocal   guisp=#5c5cff                                                                   ctermbg=74
 
 hi link Tag             Identifier
