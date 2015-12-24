@@ -40,7 +40,7 @@ set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
 set vop=folds                         " (view options) only save folds
-set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works?
+" set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works?
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
@@ -67,7 +67,7 @@ set tagbsearch
 " }}}
 
 
-" Close Scatch/preview buff where not focused
+" Close ccatch/preview buff where not focused
 " ----------------------------------------------
 "  {{{
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -88,13 +88,16 @@ colorscheme ac
 "  {{{
 "  Vundle
 filetype plugin indent off
-set runtimepath+=~/.vim/bundle/vundle/
+set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'majutsushi/tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
 Plugin 'Tabular'
+" Plugin 'Colorizer'
+Plugin 'vim-javascript'
+Plugin 'rainbow_parentheses.vim'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -128,10 +131,14 @@ filetype plugin indent on
 autocmd FileType make setlocal noet 
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/*
+autocmd FileType python Plugin 'Pydoc.vim'
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 autocmd FileType python set tabstop=4 shiftwidth=4 noet
+
+" Ignore boost headers since they take ages to search through
+set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
 
 "set cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,ps,ts,+s,c3,C0,/0,(0,us,U0,u0,w0,W1s,k0,m0,j0,J0,)20,*70,#0
 set cinoptions=:0,g0,t0,(0,u0
@@ -160,7 +167,7 @@ abbreviate syserr System.err.println(
 "}}}
 
 
-" Options
+" NETRW
 " ----------------------------------------------
 " {{{
 "let g:netrw_liststyle = 3
@@ -180,32 +187,35 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 " Conditionals
 "-----------------------------------------------
 "{{{
-
-" Map Sync
+" syntax sync
 if has('syntax')
     " For redrawing the syntax highlighting
     nmap .SS :syn sync fromstart
 endif
 
 if has('gui_running')
-    set go-=T                   " disable toolbar
-    set go-=r                   " disable right scrollbar
-    set go-=L                   " disable left scrollbar
-    set go+=aA                  " use OS clipboard, and more
-    set guifont=Monospace\ 9
-    set lines=48 columns=85     " window size
+    set go-=T                " disable toolbar
+    set go-=r                " disable right scrollbar
+    set go-=L                " disable left scrollbar
+    set go+=aA               " use OS clipboard, and more
+    set guifont=Monospace\ 9 " some common font
+    set lines=48 columns=85  " window size
 
-    nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
+    autocmd FileType c,cpp,h nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
 
 else
-    set term=$TERM              " Give vim your term settings
-    set t_Co=256                " Assure 256 color
+    set term=$TERM " Give vim your term settings
+    set t_Co=256   " Assure 256 color
     
-    " Fixes Mouse issues in rxvt-unicode
-    if &term =~ "rxvt*"
-        set ttymouse=urxvt
+    if has("mouse_sgr")
+        set ttymouse=sgr
     else
-        set ttymouse=xterm2
+        " Fixes Mouse issues in rxvt-unicode
+        if &term =~ "rxvt*"
+            set ttymouse=urxvt
+        else
+            set ttymouse=xterm2
+        endif
     endif
 
     " When in a limited tty
@@ -213,8 +223,8 @@ else
         colorscheme desert
     endif
 
-    " Screen title stuff
-    " TODO set screen's title
+    " Screen title stuff. The goal is to actually
+    " set the active window's title
     if &term =~ "screen*"
         set t_ts=k
         set t_fs=\
@@ -225,11 +235,11 @@ endif
 "}}}
 
 
-
 " Key Bindings
 "-------------------------------------------------
 "{{{
-map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>     
+map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>
+map <F4> :RainbowParenthesesToggleAll<CR>
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
 nmap .p :prev<CR>
@@ -261,13 +271,15 @@ nmap .tt :Te .<CR><CR>
 nmap .vt :Ve! .<CR><CR>
 nmap .st :Se! .<CR><CR>
 
-
 " Folding, highlight text and press space to fold / unfold
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
-" Write file as ROOT
+" Write file as root
 cmap w!! w !sudo tee % >/dev/null
+
+" Toggle the quick fix window
+nnoremap <silent> <F7> :QFix<CR>
 "}}}
 
 
@@ -322,10 +334,7 @@ augroup QFixToggle
     autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
-nnoremap <silent> <F7> :QFix<CR>
-
 "}}}
-
 
 
 " vim: foldmethod=marker : 

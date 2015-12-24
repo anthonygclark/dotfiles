@@ -90,18 +90,19 @@ fi
 #The 'ls' family (in all it's glory)
 ####################################
 alias ll="ls -l --group-directories-first"
-alias la="ls -a"                # show hidden files
-alias lx="ls -lXB"              # sort by extension
-alias lk="ls -lSr"              # sort by size, biggest last
-alias lc="ls -ltcr"             # sort by and show change time, most recent last
-alias lu="ls -ltur"             # sort by and show access time, most recent last
-alias lt="ls -ltr"              # sort by date, most recent last
-alias lm="ls -al |more"         # pipe through 'more'
-alias lr="ls -lR"               # recursive ls
-alias lsr="tree -Csu"           # nice alternative to 'recursive ls'
-alias lp="ls++"                 # https://github.com/trapd00r/ls--
-alias sdate="date +%F_%H_%M_%S" # unix filename friendly date format
-alias fh="find . -iname"        # find here
+alias la="ls -a"                        # show hidden files
+alias lx="ls -lXB"                      # sort by extension
+alias lk="ls -lSr"                      # sort by size, biggest last
+alias lc="ls -ltcr"                     # sort by and show change time, most recent last
+alias lu="ls -ltur"                     # sort by and show access time, most recent last
+alias lt="ls -ltr"                      # sort by date, most recent last
+alias lm="ls -al |more"                 # pipe through 'more'
+alias lr="ls -lR"                       # recursive ls
+alias lsr="tree -Csu"                   # nice alternative to 'recursive ls'
+alias lp="ls++"                         # https://github.com/trapd00r/ls--
+alias sdate="date +%F_%H_%M_%S"         # unix filename friendly date format
+alias fh="find . -iname"                # find here
+alias size_here="du -d 1 -hc | sort -h" # finds the size of the current directory
 
 unset __make_flags
 unset __root_prompt
