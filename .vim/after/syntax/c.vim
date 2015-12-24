@@ -260,11 +260,11 @@ hi def link cUserFunction cFunction
 hi def link cUserFunctionPointer cFunction
 
 " Highlight Class and Function names
-syn match    cCustomScope    "::"
+syn match    cCustomScope   "::"
 syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope,cFunction
-"syn match    cCustomClass    "\v\w+%(::)+" contains=cCustomScope,cFunction
+"syn match    cCustomClass   "\%(\w\+\s*::\s*\)\+\w\+\ze\s*\S\%(\w\|(\)\@<!" contains=cCustomScope,cFunction
 
-hi def link cCustomClass Special
+hi def link  cCustomClass   Special
 
 " Delimiters
 syn match cDelimiter    "[();\\]"
