@@ -1,7 +1,7 @@
 " ------~------
 " Anthony Clark
 " ------~-------
-"A mixture of darkspectrum and my
+" A mixture of darkspectrum and my
 " own creativity. 
 "
 
