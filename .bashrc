@@ -103,6 +103,8 @@ alias lp="ls++"                         # https://github.com/trapd00r/ls--
 alias sdate="date +%F_%H_%M_%S"         # unix filename friendly date format
 alias fh="find . -iname"                # find here
 alias size_here="du -d 1 -hc | sort -h" # finds the size of the current directory
+alias atree="tree --charset=ASCII"      # tree with print friendly chars
+alias open="xdg-open"                   # OSX-like open... breaks OSX obviously
 
 unset __make_flags
 unset __root_prompt
