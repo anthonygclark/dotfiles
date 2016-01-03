@@ -44,7 +44,6 @@ set vop=folds                         " (view options) only save folds
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
-let g:html_dynamic_folds = 1
 "set updatetime=30000 updatecount=100  " Swap options
 " }}}
 
@@ -67,7 +66,7 @@ set tagbsearch
 " }}}
 
 
-" Close ccatch/preview buff where not focused
+" Close Scatch/preview buff where not focused
 " ----------------------------------------------
 "  {{{
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -79,7 +78,6 @@ set completeopt=menuone,menu,longest,preview
 " -----------------------------------------------
 "  {{{
 runtime ftplugin/man.vim
-colorscheme ac
 " }}}
 
 
@@ -91,6 +89,7 @@ filetype plugin indent off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'scrooloose/nerdtree.git'
 Plugin 'majutsushi/tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
@@ -98,6 +97,7 @@ Plugin 'Tabular'
 " Plugin 'Colorizer'
 Plugin 'vim-javascript'
 Plugin 'rainbow_parentheses.vim'
+" Plugin 'YouCompleteMe'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -118,7 +118,10 @@ map <leader>t\| :Tabularize /\|<CR>
 map <leader>t\\ :Tabularize /\\$<CR>
 map <leader>t<< :Tabularize /<<<CR>
 map <leader>t>> :Tabularize />><CR>
+map <leader>t} :Tabularize /}<CR>
+map <leader>t{ :Tabularize /{<CR>
 
+map <leader>ntt :NERDTreeToggle<CR>
 
 call vundle#end()
 filetype plugin indent on
@@ -167,13 +170,15 @@ abbreviate syserr System.err.println(
 "}}}
 
 
-" NETRW
+" Options
 " ----------------------------------------------
 " {{{
 "let g:netrw_liststyle = 3
 "let g:netrw_preview   = 1
 "let g:netrw_winsize   = 30
 "let g:netrw_browse_split = 3
+"
+let g:html_dynamic_folds = 1
 "}}}
 
 
@@ -194,6 +199,8 @@ if has('syntax')
 endif
 
 if has('gui_running')
+    set bg=dark
+    colorscheme hybrid
     set go-=T                " disable toolbar
     set go-=r                " disable right scrollbar
     set go-=L                " disable left scrollbar
@@ -221,6 +228,9 @@ else
     " When in a limited tty
     if &term == "linux"
         colorscheme desert
+    else
+        " Terminals
+        colorscheme ac
     endif
 
     " Screen title stuff. The goal is to actually
@@ -240,6 +250,7 @@ endif
 "{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>
 map <F4> :RainbowParenthesesToggleAll<CR>
+nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
 nmap .p :prev<CR>
@@ -277,9 +288,6 @@ vnoremap <Space> zf
 
 " Write file as root
 cmap w!! w !sudo tee % >/dev/null
-
-" Toggle the quick fix window
-nnoremap <silent> <F7> :QFix<CR>
 "}}}
 
 
@@ -334,6 +342,8 @@ augroup QFixToggle
     autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
+" Toggle the quick fix window
+nnoremap <silent> <F7> :QFix<CR>
 "}}}
 
 
