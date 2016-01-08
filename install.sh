@@ -104,7 +104,8 @@ fi
 # update bundles
 git submodule init
 git submodule update
-vim +BundleInstall +qall
-vim +BundleUpdate +qall
+
+vim +PluginInstall +qall
+vim +PluginUpdate +qall
 
 exit 0

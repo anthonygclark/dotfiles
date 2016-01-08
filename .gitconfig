@@ -1,30 +1,30 @@
 # vim: set noet
 [user]
-	name = Anthony Clark
-	email = aclark@bbn.com
+    name  = Anthony Clark
+    email = clark.anthony.g@gmail.com
 [color]
-	ui = auto
+    ui = auto
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+    current = yellow reverse
+    local   = yellow
+    remote  = green
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+    meta = yellow bold
+    frag = magenta bold
+    old  = red bold
+    new  = green bold
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+    added     = yellow
+    changed   = green
+    untracked = cyan
 [alias]
-	ll = log --graph --decorate --pretty=oneline --abbrev-commit
-	lla = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	ls = ls-files
-	ign = ls-files -o -i --exclude-standard
-	up = !git remote update --prune && git merge --ff-only @{u}
-	rebaseu = rebase --preserve-merges @{u}
-	logu = log -p @{u}..
-	g = grep --break --heading --line-number
+    ll      = log --graph --decorate --pretty=oneline --abbrev-commit
+    lla     = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls      = ls-files
+    ign     = ls-files -o -i --exclude-standard
+    up      = !git remote update --prune && git merge --ff-only @{u}
+    rebaseu = rebase --preserve-merges @{u}
+    logu    = log -p @{u}..
+    g       = grep --break --heading --line-number
 [push]
-	default = simple
+    default = simple
