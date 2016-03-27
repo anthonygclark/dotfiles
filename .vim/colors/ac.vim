@@ -1,9 +1,6 @@
 " ------~------
 " Anthony Clark
 " ------~-------
-" A mixture of darkspectrum and my
-" own creativity. 
-"
 
 hi clear
 set background=dark

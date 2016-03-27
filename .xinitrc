@@ -50,7 +50,7 @@ fi
 DZEN="$HOME/code/scripts/$(hostname)/dzen.sh"
 if which $DZEN &>/dev/null;
 then
-    $(sleep 2 ; bash $DZEN) &
+    $(sleep 5 ; $DZEN) &
 fi
 
 # DWM

@@ -40,11 +40,10 @@ set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
 set printfont=Courier:h7              " Sets hardcopy font and size, sadly only Courier font is allowed.
 set vop=folds                         " (view options) only save folds
-" set omnifunc=syntaxcomplete#Complete  " does anyone know how this actually works?
 set backup                            " Sets backup
 set backupdir=$HOME/.vim/backup       " Backup files location
 set directory=$HOME/.vim/swap         " Swap files location
-"set updatetime=30000 updatecount=100  " Swap options
+set updatetime=30000 updatecount=100  " Swap options
 " }}}
 
 
@@ -89,15 +88,18 @@ filetype plugin indent off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'majutsushi/tagbar'
-Plugin 'DoxygenToolkit.vim'
-Plugin 'fugitive.vim'
+Plugin 'nerdtree'
+Plugin 'tagbar'
+Plugin 'DoxygenToolkit'
+Plugin 'fugitive'
 Plugin 'Tabular'
 " Plugin 'Colorizer'
 Plugin 'vim-javascript'
-Plugin 'rainbow_parentheses.vim'
-" Plugin 'YouCompleteMe'
+Plugin 'glsl'
+Plugin 'rainbow_parentheses'
+Plugin 'Pydoc'
+"Plugin 'YouCompleteMe'
+"Plugin 'hynek/vim-python-pep8-indent'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -107,8 +109,7 @@ let mapleader = ","
 " Fugitive
 map <leader>gs :Gstatus<CR>
 map <leader>gd :Gdiff<CR>
-map <leader>gw :Gwrite<CR>
-map <leader>gr :Gread<CR>
+map <leader>gb :Gblame<CR>
 
 " Tabularize
 map <leader>t=  :Tabularize /=<CR>
@@ -134,11 +135,10 @@ filetype plugin indent on
 autocmd FileType make setlocal noet 
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/*
-autocmd FileType python Plugin 'Pydoc.vim'
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType python set tabstop=4 shiftwidth=4 noet
+autocmd FileType python set tabstop=4 shiftwidth=4 noet softtabstop=4
 
 " Ignore boost headers since they take ages to search through
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
@@ -177,7 +177,6 @@ abbreviate syserr System.err.println(
 "let g:netrw_preview   = 1
 "let g:netrw_winsize   = 30
 "let g:netrw_browse_split = 3
-"
 let g:html_dynamic_folds = 1
 "}}}
 
@@ -200,13 +199,13 @@ endif
 
 if has('gui_running')
     set bg=dark
-    colorscheme hybrid
     set go-=T                " disable toolbar
     set go-=r                " disable right scrollbar
     set go-=L                " disable left scrollbar
     set go+=aA               " use OS clipboard, and more
     set guifont=Monospace\ 9 " some common font
     set lines=48 columns=85  " window size
+    colorscheme ac
 
     autocmd FileType c,cpp,h nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
 

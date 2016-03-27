@@ -104,6 +104,7 @@ fi
 # update bundles
 git submodule init
 git submodule update
+git submodule foreach git pull origin master
 
 vim +PluginInstall +qall
 vim +PluginUpdate +qall

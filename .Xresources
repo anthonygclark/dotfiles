@@ -76,7 +76,7 @@ URxvt*urgentOnBell     : true
 
 URxvt*pointerBlank     : true
 
-URxvt.perl-ext-common   : default,tabbedex
+URxvt.perl-ext-common   : default,tabbedex,resize-font
 URxvt.tabbed.autohide   : true
 URxvt.tabbed.new-button : false
 URxvt.tabbed.title      : false
@@ -84,6 +84,11 @@ URxvt.tabbed.tabbar-fg  : 8
 URxvt.tabbed.tabbar-bg  : 0
 URxvt.tabbed.tab-fg     : 6
 URxvt.tabbed.tab-bg     : 0
+
+! URxvt.resize-font.smaller : C-Down
+! URxvt.resize-font.bigger  : C-Up
+! URxvt.iso14755            : false
+! URxvt.iso14755_52         : false
 
 Xft.autohint:   0
 Xft.lcdfilter:  lcddefault

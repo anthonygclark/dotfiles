@@ -1,4 +1,7 @@
 " Vim syntax file
+" Modifications made by Anthony Clark
+"
+" 
 " Language: C Additions
 " Maintainer:   Mikhail Wolfson <mywolfson@gmail.com>
 " URL: http://web.mit.edu/wolfsonm
