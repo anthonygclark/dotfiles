@@ -88,18 +88,17 @@ filetype plugin indent off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'nerdtree'
-Plugin 'tagbar'
-Plugin 'DoxygenToolkit'
-Plugin 'fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Tagbar'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'fugitive.vim'
 Plugin 'Tabular'
-" Plugin 'Colorizer'
-Plugin 'vim-javascript'
-Plugin 'glsl'
-Plugin 'rainbow_parentheses'
-Plugin 'Pydoc'
+Plugin 'javascript.vim'
+Plugin 'glsl.vim'
+Plugin 'rainbow_parentheses.vim'
+Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'colorizer'
 "Plugin 'YouCompleteMe'
-"Plugin 'hynek/vim-python-pep8-indent'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
