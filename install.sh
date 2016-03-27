@@ -20,6 +20,26 @@ function fail()
     exit 1
 }
 
+# update bundles
+git submodule init
+git submodule update
+git submodule foreach git pull origin master
+
+# The generic option removed my user info from
+# gitconfig and remove my color prefs from .vimrc
+# and probably more
+if [[ -e ${script_dir}/generic.patch ]];
+then
+    cd $dest
+    echo -ne "Make these dotfiles generic? [y/n]?: "
+    read ans
+    if [ ${ans,,} == "y" ] ; then
+        patch -p1 < $script_dir/generic.patch || fail "patch"
+    else
+        echo "Aborting Patch"
+    fi
+fi
+
 dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
     ! -iname 'install.sh' \
     ! -iname '*.patch' \
@@ -84,27 +104,6 @@ do
     cp -r $i $dest/$(dirname $i) || fail "copy"
 done
 echo "[+] New dotfiles installed"
-
-
-# The generic option removed my user info from
-# gitconfig and remove my color prefs from .vimrc
-# and probably more
-if [[ -e ${script_dir}/generic.patch ]];
-then
-    cd $dest
-    echo -ne "Make these dotfiles generic? [y/n]?: "
-    read ans
-    if [ ${ans,,} == "y" ] ; then
-        patch -p1 < $script_dir/generic.patch || fail "patch"
-    else
-        echo "Aborting Patch"
-    fi
-fi
-
-# update bundles
-git submodule init
-git submodule update
-git submodule foreach git pull origin master
 
 vim +PluginInstall +qall
 vim +PluginUpdate +qall
