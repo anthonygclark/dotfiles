@@ -93,12 +93,15 @@ Plugin 'Tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
 Plugin 'Tabular'
-Plugin 'javascript.vim'
+"Plugin 'javascript.vim'
 Plugin 'glsl.vim'
 Plugin 'rainbow_parentheses.vim'
 Plugin 'hynek/vim-python-pep8-indent'
 "Plugin 'colorizer'
+
 "Plugin 'YouCompleteMe'
+"let g:ycm_server_python_interpreter = '/usr/bin/python3'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -169,7 +172,7 @@ abbreviate syserr System.err.println(
 "}}}
 
 
-" Options
+" Global Options
 " ----------------------------------------------
 " {{{
 "let g:netrw_liststyle = 3
@@ -212,13 +215,13 @@ else
     set term=$TERM " Give vim your term settings
     set t_Co=256   " Assure 256 color
     
-    if has("mouse_sgr")
-        set ttymouse=sgr
+    if &term =~ "rxvt*"
+        set ttymouse=urxvt
     else
-        " Fixes Mouse issues in rxvt-unicode
-        if &term =~ "rxvt*"
-            set ttymouse=urxvt
+        if has("mouse_sgr")
+            set ttymouse=sgr
         else
+            " Fixes Mouse issues in rxvt-unicode
             set ttymouse=xterm2
         endif
     endif
