@@ -40,11 +40,13 @@ then
     fi
 fi
 
-dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
+dotfiles=(
+$(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
     ! -iname 'install.sh' \
     ! -iname '*.patch' \
     ! -iname '.git*' \
-    ! -iname 'README'))
+    ! -iname 'README')
+)
 
 _dirs=()
 
