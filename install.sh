@@ -1,8 +1,8 @@
 #!/bin/bash
 # Anthony Clark
 #
-# Installs dotfiles, creating a backup of the
-# old dotfiles
+# Installs dotfiles via naive copying.
+# Vundle is cloned into .vim, this needs to change.
 
 # Change into the script dir
 script_dir=$(dirname $(readlink -m $0))
@@ -94,22 +94,20 @@ echo "[+] New dotfiles installed"
 # The generic option removed my user info from
 # gitconfig and remove my color prefs from .vimrc
 # and probably more
-if [[ -e ${script_dir}/generic.patch ]];
+if [[ -e "${script_dir}/generic.patch" ]];
 then
-    cd $dest
+    cd "$dest" || exit 1
+
     echo -ne "Make these dotfiles generic? [y/n]?: "
     read ans
-    if [ ${ans,,} == "y" ] ; then
-        patch -p1 < $script_dir/generic.patch || fail "patch"
+    if [ "${ans,,}" == "y" ] ; then
+        patch -p1 < "$script_dir/generic.patch" || fail "patch"
     else
         echo "Aborting Patch"
     fi
 fi
 
-# update bundles
-git submodule init
-git submodule update
+echo "Cloning vundle..."
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +BundleInstall +qall
-vim +BundleUpdate +qall
 
-exit 0

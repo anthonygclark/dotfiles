@@ -26,7 +26,8 @@ hi lCursor      gui=reverse     guifg=NONE      guibg=NONE      cterm=reverse   
 hi Cursor                       guifg=#000000   guibg=#ffffff                     ctermfg=16    ctermbg=231
 hi CursorLine   gui=NONE                        guibg=#262626   cterm=NONE                      ctermbg=235
 hi CursorLineNr gui=NONE        guifg=#d7af5f                   cterm=NONE        ctermfg=179
-hi CursorColumn gui=NONE                        guibg=#262626   cterm=NONE                      ctermbg=235
+"hi CursorColumn gui=NONE                        guibg=#262626   cterm=NONE                      ctermbg=235
+hi CursorColumn guifg=#a8a8a8   guibg=#444444   gui=NONE        cterm=NONE        ctermfg=248   ctermbg=238
 
 hi DiffAdd      guifg=#ffd787   guibg=#af8700   gui=NONE        cterm=NONE        ctermfg=222   ctermbg=136
 hi DiffChange   guifg=#87afff   guibg=#425c78   gui=NONE        cterm=NONE        ctermfg=111   ctermbg=60

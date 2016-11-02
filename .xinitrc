@@ -19,6 +19,9 @@ xset fp rehash
 # Background
 xsetroot -solid grey31
 
+# Screen lock
+xautolock -time 5 -locker slock &
+
 # MPDSCRIBBLE
 USE_MPDSCRIBBLE=false
 
@@ -58,4 +61,3 @@ while true;
 do
   dbus-launch --exit-with-session dwm >/dev/null 1>&1
 done
-

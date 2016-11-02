@@ -26,5 +26,8 @@
 	rebaseu = rebase --preserve-merges @{u}
 	logu = log -p @{u}..
 	g = grep --break --heading --line-number
+	smup = submodule foreach git pull
+	sb = status -sb
+	s = status
 [push]
 	default = simple

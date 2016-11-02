@@ -17,7 +17,7 @@ set mouse=a                           " Mouse
 set mousemodel=popup_setpos           " Mouse options
 set foldenable                        " Enable folding
 "set cursorline                        " highlight line
-set number                            " Show line numbers 
+set number                            " Show line numbers
 set spelllang=en                      " Spelling options
 set splitbelow splitright             " Put new windows below and right by default
 set autoindent smartindent            " Toggle Auto-indent and Smart-indent.
@@ -33,7 +33,7 @@ set stal=4                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 set listchars+=tab:>-                 " Hidden character prefixes
 set listchars+=trail:-                " ^
-set switchbuf=useopen                 " Use open buffer for switching
+set switchbuf=newtab                  " Use open buffer for switching
 set listchars+=precedes:<,extends:<   " Show when there is text off screen
 set printencoding={utf-8}             " For hardcopies
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
@@ -83,21 +83,22 @@ runtime ftplugin/man.vim
 
 " Plugin Stuff
 " -----------------------------------------------
-"  {{{
+"{{{
 "  Vundle
 filetype plugin indent off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'majutsushi/tagbar'
+" External
+Plugin 'gmarik/Vundle.vim'
+Plugin 'https://github.com/vim-utils/vim-man'
+Plugin 'scrooloose/nerdtree'
+
+" Internal
+Plugin 'tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
 Plugin 'Tabular'
-" Plugin 'Colorizer'
-Plugin 'vim-javascript'
-Plugin 'rainbow_parentheses.vim'
-" Plugin 'YouCompleteMe'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -131,14 +132,15 @@ filetype plugin indent on
 " File Specific Settings
 "-----------------------------------------------
 "{{{
-autocmd FileType make setlocal noet 
+autocmd FileType make setlocal noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/*
-autocmd FileType python Plugin 'Pydoc.vim'
+"autocmd FileType python Plugin 'Pydoc.vim'
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 autocmd FileType python set tabstop=4 shiftwidth=4 noet
+autocmd FileType sh set makeprg=shellcheck\ -f\ gcc\ -e\ SC2034\ %
 
 " Ignore boost headers since they take ages to search through
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
@@ -177,7 +179,6 @@ abbreviate syserr System.err.println(
 "let g:netrw_preview   = 1
 "let g:netrw_winsize   = 30
 "let g:netrw_browse_split = 3
-"
 let g:html_dynamic_folds = 1
 "}}}
 
@@ -199,8 +200,6 @@ if has('syntax')
 endif
 
 if has('gui_running')
-    set bg=dark
-    colorscheme hybrid
     set go-=T                " disable toolbar
     set go-=r                " disable right scrollbar
     set go-=L                " disable left scrollbar
@@ -208,18 +207,26 @@ if has('gui_running')
     set guifont=Monospace\ 9 " some common font
     set lines=48 columns=85  " window size
 
+    " set bg=dark
+    " colorscheme hybrid
+    " colorscheme molokai
+    colorscheme ac
+
     autocmd FileType c,cpp,h nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
 
 else
     set term=$TERM " Give vim your term settings
     set t_Co=256   " Assure 256 color
-    
-    if has("mouse_sgr")
-        set ttymouse=sgr
+
+    " Mouse support
+    " As of Thu Feb 11 2016, `urxvt` is the only way
+    " to enable mouse control after col 223 even with vsplits
+    " in urxvt.
+    if &term =~ "rxvt*"
+        set ttymouse=urxvt
     else
-        " Fixes Mouse issues in rxvt-unicode
-        if &term =~ "rxvt*"
-            set ttymouse=urxvt
+        if has("mouse_sgr")
+            set ttymouse=sgr
         else
             set ttymouse=xterm2
         endif
@@ -238,7 +245,7 @@ else
     if &term =~ "screen*"
         set t_ts=k
         set t_fs=\
-    endif    
+    endif
 
 endif
 
@@ -249,7 +256,6 @@ endif
 "-------------------------------------------------
 "{{{
 map <F12> :w<CR>:!aspell -c %<CR><CR>:e<CR><CR>
-map <F4> :RainbowParenthesesToggleAll<CR>
 nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nmap <silent> .N :set number!<CR>
 nmap .n :next<CR>
@@ -294,6 +300,15 @@ cmap w!! w !sudo tee % >/dev/null
 " Functions
 "---------------------------------------------------
 "{{{
+
+" Not really a function, but tells QuickFix functions to open the cwindow
+" after being called automatically.
+augroup myvimrc
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
+
 " Highlight the text after 80 column mark
 nnoremap <silent> <F5>
             \ :if exists('w:long_line_match') <Bar>
@@ -347,4 +362,4 @@ nnoremap <silent> <F7> :QFix<CR>
 "}}}
 
 
-" vim: foldmethod=marker : 
+" vim: foldmethod=marker :

@@ -54,11 +54,11 @@ URxvt*cursorColor2: #0f0f0f
 URxvt*font:     xft:dina:pixelsize=10:antialias=true:hinting:true
 URxvt*boldFont: xft:dina:bold:pixelsize=10:antialias=true:hinting:true
 
-URxvt*cursorBlink:     true
-URxvt*cursorUnderline: false
+URxvt*cursorBlink     : true
+URxvt*cursorUnderline : false
 
-URxvt*geometry:       75x15
-URxvt*internalBorder: 3
+URxvt*geometry       : 75x15
+URxvt*internalBorder : 3
 
 URxvt*depth            : 24
 
@@ -85,34 +85,33 @@ URxvt.tabbed.tabbar-bg  : 0
 URxvt.tabbed.tab-fg     : 6
 URxvt.tabbed.tab-bg     : 0
 
-Xft.autohint:   0
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintfull
-Xft.hinting:    1
-Xft.antialias:  1
-Xft.dpi:        96
-Xft.rgba:       rgb
-
+Xft.autohint  : 0
+Xft.lcdfilter : lcddefault
+Xft.hintstyle : hintfull
+Xft.hinting   : 1
+Xft.antialias : 1
+Xft.dpi       : 96
+Xft.rgba      : rgb
 
 ! --------------------------- DDD specific stuff
-Ddd*enableThinThickness: True
-Ddd*enableEtchedInMenu: True
-Ddd*enableToggleColor: True
-Ddd*enableToggleVisual: True
+Ddd*enableThinThickness : True
+Ddd*enableEtchedInMenu  : True
+Ddd*enableToggleColor   : True
+Ddd*enableToggleVisual  : True
  
 ! Use pure white for white backgrounds like modern widget themes and websites
-Ddd*XmText.background: #ffffff
-Ddd*XmTextField.background: #ffffff
-Ddd*XmList.background: #ffffff
-Ddd*GraphEdit.background: #ffffff
+Ddd*XmText.background      : #ffffff
+Ddd*XmTextField.background : #ffffff
+Ddd*XmList.background      : #ffffff
+Ddd*GraphEdit.background   : #ffffff
  
 ! Thick borders and shadows everywhere are archaic
-Ddd*shadowThickness: 1
-Ddd*borderThickness: 0
-Ddd*?*arg*shadowThickness: 1
-Ddd*?*arg*borderThickness: 0
-Ddd*?*buttons*shadowThickness: 1
-Ddd*?*buttons*borderThickness: 0
+Ddd*shadowThickness           : 1
+Ddd*borderThickness           : 0
+Ddd*?*arg*shadowThickness     : 1
+Ddd*?*arg*borderThickness     : 0
+Ddd*?*buttons*shadowThickness : 1
+Ddd*?*buttons*borderThickness : 0
  
 ! Un-cramp the menubar, menus, and toolbar to match modern compact sizing
 Ddd*menubar*marginTop: 1
@@ -165,7 +164,7 @@ xcalc.ti.bevel.screen.RAD.foreground:  LightSeaGreen
 xcalc.ti.bevel.screen.INV.background:  #000000
 xcalc.ti.bevel.screen.INV.foreground:  Red
 xcalc.ti.bevel.screen.LCD.background:  #000000
-xcalc.ti.bevel.screen.LCD.foreground:  LightSeaGreen
+calc.ti.bevel.screen.LCD.foreground:  LightSeaGreen
 xcalc.ti.bevel.screen.LCD.shadowWidth: 0
 xcalc.ti.bevel.screen.M.background:    #000000
 xcalc.ti.bevel.screen.M.foreground:    LightSeaGreen
