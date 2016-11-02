@@ -6,7 +6,7 @@
 
 # Change into the script dir
 script_dir=$(dirname $(readlink -m $0))
-cd $script_dir
+cd "$script_dir" || exit 1
 
 # Some vars
 dest="$HOME"
@@ -29,14 +29,17 @@ dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
 _dirs=()
 
 # Build array of these dotfiles
-for i in ${dotfiles[@]}; do
+for i in "${dotfiles[@]}";
+do
     # gross...
-    if [[ $i =~ ".git" ]]; then continue; fi
-    if [[ $i == "." ]]; then continue; fi
-    if [[ $i == ".." ]]; then continue; fi
+    case "$i" in
+        .git*) continue ;;
+        .) continue ;;
+        ..) continue ;;
+    esac
 
-    if [[ -d $i ]]; then
-        _dirs[${#_dirs[@]}]=$i
+    if [[ -d "$i" ]]; then
+        _dirs[${#_dirs[@]}]="$i"
         continue;
     fi
 
@@ -44,7 +47,7 @@ for i in ${dotfiles[@]}; do
 done
 
 # Build array of dotfiles that match the current dotfiles for backup
-for i in ${f[@]}; do
+for i in "${f[@]}"; do
     if [[ ! -e $dest/$i ]]; then
         continue
     fi
@@ -55,34 +58,36 @@ done
 
 
 # Backup and remove old dotfiles
-if [[ ! -z ${e[@]} ]]; then
-    cd $dest
+if [[ ! -z ${e[@]} ]];
+then
+    cd "$dest" || exit 1
 
     # Backup
-    tar -cf $out ${e[@]} || fail "tar"
+    tar -cf "$out" "${e[@]}" || fail "tar"
     echo "[+] Backing up old dotfiles to $out"
 
     # Delete
-    for i in ${e[@]}; do
+    for i in "${e[@]}"; do
         rm -fr "$i" || fail "remove, please restore from backup"
     done
 
     echo "[+] Deleted old dotfiles."
 fi
 
-cd $script_dir
+cd "$script_dir" || exit 1
 
 # mkdirs
-for i in ${_dirs[@]};
+for i in "${_dirs[@]}";
 do
-    mkdir -p $dest/$i || fail "mkdir -p"
+    mkdir -p "$dest/$i" || fail "mkdir -p"
 done
 
 # install files
-for i in ${f[@]};
+for i in "${f[@]}";
 do
-    cp -r $i $dest/$(dirname $i) || fail "copy"
+    cp -r "$i" "$dest/$(dirname $i)" || fail "copy"
 done
+
 echo "[+] New dotfiles installed"
 
 
