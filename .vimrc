@@ -99,6 +99,7 @@ Plugin 'tagbar'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'fugitive.vim'
 Plugin 'Tabular'
+Plugin 'glsl.vim'
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>

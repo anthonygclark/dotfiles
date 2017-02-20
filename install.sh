@@ -8,6 +8,15 @@
 script_dir=$(dirname $(readlink -m $0))
 cd "$script_dir" || exit 1
 
+while true; do
+    read -p "Are you sure you want to do this? [y/n]: " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
 # Some vars
 dest="$HOME"
 _date=$(date +%F_%H_%M_%S)
@@ -107,7 +116,10 @@ then
     fi
 fi
 
+# Gross
 echo "Cloning vundle..."
+mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +BundleInstall +qall
 
+echo "Done."
