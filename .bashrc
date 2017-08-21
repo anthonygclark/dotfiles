@@ -16,8 +16,8 @@ shopt -s checkwinsize
     || { [[ -r /etc/bash_completion ]] && source /etc/bash_completion; }
 
 # prints git branch of pwd
-__git_ps1_ () 
-{ 
+__git_ps1_ ()
+{
     local b="$(git symbolic-ref HEAD 2>/dev/null)";
     if [[ -n "$b" ]]; then
         printf "(%s)" "${b##refs/heads/}";
@@ -72,7 +72,7 @@ color_prompt=
 
 if [[ "$color_prompt" =~ "no" ]] ; then
     PS1='[\u@\h \W]\$ '
-elif which tput &> /dev/null && tput setaf 1 &>/dev/null; then 
+elif which tput &> /dev/null && tput setaf 1 &>/dev/null; then
     case $((UID)) in
         0)  # root
             __root_prompt

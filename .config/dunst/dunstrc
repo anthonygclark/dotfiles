@@ -1,6 +1,6 @@
 # vim: ft=cfg
 [global]
-    font = tamsyn 8
+    font = Dina 6
 
     allow_markup = true
 
@@ -54,7 +54,7 @@
     close     = ctrl+space
     close_all = ctrl+shift+space
     history   = ctrl+grave
-    context   = ctrl+shift+period
+    context   = ctrl+period
 
 [urgency_low]
     foreground = "#eeeeee"
