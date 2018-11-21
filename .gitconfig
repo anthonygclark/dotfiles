@@ -26,5 +26,6 @@
     rebaseu = rebase --preserve-merges @{u}
     logu    = log -p @{u}..
     g       = grep --break --heading --line-number
+    s       = status
 [push]
     default = simple

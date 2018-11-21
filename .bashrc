@@ -6,74 +6,92 @@
 [[ $- != *i* ]] && return
 [[ $TERM =~ "xterm" ]] && TERM=xterm-256color
 
+color_prompt="yes"
+
 # Shopt
 #shopt -s histappend
 shopt -s checkwinsize
 
 # Import all bash-completions
-[[ -r /usr/share/bash-completion/bash_completion ]]                      \
-    && { source  /usr/share/bash-completion/bash_completion; }           \
-    || { [[ -r /etc/bash_completion ]] && source /etc/bash_completion; }
+if [[ -r /usr/share/bash-completion/bash_completion ]] ; then
+    source  /usr/share/bash-completion/bash_completion
+fi
 
-# prints git branch of pwd
-__git_ps1_ ()
+if [[ -r /etc/bash_completion ]] ; then
+    source /etc/bash_completion
+fi
+
+function __git_ps1_ ()
 {
-    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    local b
+    b=$(git symbolic-ref HEAD 2>/dev/null)
+
     if [[ -n "$b" ]]; then
         printf "(%s)" "${b##refs/heads/}";
     fi
 }
 
-# print indicators for certain vars
-__make_flags()
+function __make_flags()
 {
-    local BLUE=$(tput setaf 4)
-    local GREEN=$(tput setaf 2)
-    local PURPLE=$(tput setaf 5)
-    local ORANGE=$(tput setaf 3)
-    local END=$(tput sgr0)
+    local BLUE
+    local GREEN
+    local PURPLE
+    local ORANGE
+    local END
 
-    local f=
-    [[ ! -z ${SSH_CLIENT%% *} ]]  && f="$f\[$ORANGE\]s"
-    [[ ! -z $VIMRUNTIME ]]        && f="$f\[$PURPLE\]v"
-    [[ ! -z $STY        ]]        && f="$f\[$GREEN\]n"
-    [[ ! -z $TMUX       ]]        && f="$f\[$BLUE\]t"
+    BLUE=$(tput setaf 4)
+    GREEN=$(tput setaf 2)
+    PURPLE=$(tput setaf 5)
+    ORANGE=$(tput setaf 3)
+    END=$(tput sgr0)
 
-    [[ -z $f ]] || {
-        f="$f\[$END\]"
-        printf "[%b]" "$f";
-    }
+    local f
+    [[ ! -z ${SSH_CLIENT%% *} ]]  && f="${f}${ORANGE}s"
+    [[ ! -z $VIMRUNTIME ]]        && f="${f}${PURPLE}v"
+    [[ ! -z $STY        ]]        && f="${f}${GREEN}n"
+    [[ ! -z $TMUX       ]]        && f="${f}${BLUE}t"
+
+    if [[ ! -z $f ]] ; then
+        printf "[%b]" "${f}${END}"
+    fi
 }
 
-
-# Prompt for users.
-__user_prompt()
+function __user_prompt()
 {
-    local GREEN=$(tput setaf 2)
-    local BLUE=$(tput setaf 4)
-    local TEAL=$(tput setaf 6)
-    local END=$(tput sgr0)
-    local BOLD=$(tput bold)
-    PS1="[\[$TEAL\]\h\[$END\]]$(__make_flags)[\[$BOLD$GREEN\]\w\[$END\]]\$(__git_ps1_ '(%s)')\\$ "
-    PS2="\[$BLUE\]$PS2\[$END\]"
+    local GREEN
+    local BLUE
+    local TEAL
+    local END
+    local BOLD
+
+    GREEN=$(tput setaf 2)
+    BLUE=$(tput setaf 4)
+    TEAL=$(tput setaf 6)
+    END=$(tput sgr0)
+    BOLD=$(tput bold)
+
+    PS1="[${TEAL}\h${END}]$(__make_flags)[${BOLD}${GREEN}\w${END}]\$(__git_ps1_ '(%s)')\\$ "
+    PS2="${BLUE}${PS2}${END}"
 }
 
-# Prompt for root user, red and red.
-__root_prompt()
+function __root_prompt()
 {
-    local RED=$(tput setaf 1)
-    local END=$(tput sgr0)
-    local BOLD=$(tput bold)
-    PS1="[\[$RED\]\h\[$END\]]$(__make_flags)[\[$BOLD$RED\]\w\[$END\]]\$ "
+    local RED
+    local END
+    local BOLD
+
+    RED=$(tput setaf 1)
+    END=$(tput sgr0)
+    BOLD=$(tput bold)
+
+    PS1="[${RED}\h${END}]$(__make_flags)[${BOLD}${RED}\w${END}]\$ "
 }
 
-# To color or not to color
-color_prompt=
 
 if [[ "$color_prompt" =~ "no" ]] ; then
-    PS1='[\u@\h \W]\$ '
-elif which tput &> /dev/null && tput setaf 1 &>/dev/null; then
-    case $((UID)) in
+    PS1="[\u@\h \W]\$ "
+elif command -v tput &> /dev/null && tput setaf 1 &>/dev/null; then
+    case $(( UID )) in
         0)  # root
             __root_prompt
             ;;

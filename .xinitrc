@@ -53,6 +53,8 @@ then
     $(sleep 2 ; bash $DZEN) &
 fi
 
+dunst &
+
 # DWM
 while true;
 do
