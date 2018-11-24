@@ -39,11 +39,11 @@ function __make_flags()
     local ORANGE
     local END
 
-    BLUE=$(tput setaf 4)
-    GREEN=$(tput setaf 2)
-    PURPLE=$(tput setaf 5)
-    ORANGE=$(tput setaf 3)
-    END=$(tput sgr0)
+    BLUE="\[$(tput setaf 4)\]"
+    GREEN="\[$(tput setaf 2)\]"
+    PURPLE="\[$(tput setaf 5)\]"
+    ORANGE="\[$(tput setaf 3)\]"
+    END="\[$(tput sgr0)\]"
 
     local f
     [[ ! -z ${SSH_CLIENT%% *} ]]  && f="${f}${ORANGE}s"
@@ -64,11 +64,11 @@ function __user_prompt()
     local END
     local BOLD
 
-    GREEN=$(tput setaf 2)
-    BLUE=$(tput setaf 4)
-    TEAL=$(tput setaf 6)
-    END=$(tput sgr0)
-    BOLD=$(tput bold)
+    GREEN="\[$(tput setaf 2)\]"
+    BLUE="\[$(tput setaf 4)\]"
+    TEAL="\[$(tput setaf 6)\]"
+    END="\[$(tput sgr0)\]"
+    BOLD="\[$(tput bold)\]"
 
     PS1="[${TEAL}\h${END}]$(__make_flags)[${BOLD}${GREEN}\w${END}]\$(__git_ps1_ '(%s)')\\$ "
     PS2="${BLUE}${PS2}${END}"
@@ -80,9 +80,9 @@ function __root_prompt()
     local END
     local BOLD
 
-    RED=$(tput setaf 1)
-    END=$(tput sgr0)
-    BOLD=$(tput bold)
+    RED="\[$(tput setaf 1)\]"
+    END="\[$(tput sgr0)\]"
+    BOLD="\[$(tput bold)\]"
 
     PS1="[${RED}\h${END}]$(__make_flags)[${BOLD}${RED}\w${END}]\$ "
 }
