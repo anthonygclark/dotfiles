@@ -5,11 +5,11 @@
 # Vundle is cloned into .vim, this needs to change.
 
 # Change into the script dir
-script_dir=$(dirname $(readlink -m $0))
+readonly script_dir="$(dirname "$(readlink -m "$0")")"
 cd "$script_dir" || exit 1
 
 while true; do
-    read -p "Are you sure you want to do this? [y/n]: " yn
+    read -r -p "Are you sure you want to do this? [y/n]: " yn
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) exit;;
@@ -17,10 +17,17 @@ while true; do
     esac
 done
 
-# Some vars
-dest="$HOME"
-_date=$(date +%F_%H_%M_%S)
-out="dotfiles_backup_$_date.tar"
+readonly dest="$HOME"
+readonly _date=$(date +%F_%H_%M_%S)
+readonly out="dotfiles_backup_$_date.tar"
+
+readonly dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
+    ! -iname 'install.sh' \
+    ! -iname '*.patch' \
+    ! -iname '.git*' \
+    ! -iname 'README'))
+
+_dirs=()
 
 # Fail func, just prints fail string
 function fail()
@@ -28,14 +35,6 @@ function fail()
     echo "Failure: $1"
     exit 1
 }
-
-dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
-    ! -iname 'install.sh' \
-    ! -iname '*.patch' \
-    ! -iname '.git*' \
-    ! -iname 'README'))
-
-_dirs=()
 
 # Build array of these dotfiles
 for i in "${dotfiles[@]}";
@@ -62,12 +61,12 @@ for i in "${f[@]}"; do
     fi
 
     echo "Found old dotfile: $dest/$i"
-    e[${#e[@]}]=$i
+    e[${#e[@]}]="$i"
 done
 
 
 # Backup and remove old dotfiles
-if [[ ! -z ${e[@]} ]];
+if [[ ${#e[@]} -gt 0 ]];
 then
     cd "$dest" || exit 1
 
@@ -94,7 +93,7 @@ done
 # install files
 for i in "${f[@]}";
 do
-    cp -r "$i" "$dest/$(dirname $i)" || fail "copy"
+    cp -r "$i" "$dest/$(dirname "$i")" || fail "copy"
 done
 
 echo "[+] New dotfiles installed"
@@ -108,7 +107,7 @@ then
     cd "$dest" || exit 1
 
     echo -ne "Make these dotfiles generic? [y/n]?: "
-    read ans
+    read -r ans
     if [ "${ans,,}" == "y" ] ; then
         patch -p1 < "$script_dir/generic.patch" || fail "patch"
     else
@@ -116,10 +115,9 @@ then
     fi
 fi
 
-# Gross
-echo "Cloning vundle..."
-mkdir -p ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +BundleInstall +qall
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || fail "Failed to download vim-plug"
+
+vim +PlugInstall +qall
 
 echo "Done."
