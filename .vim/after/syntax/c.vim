@@ -200,6 +200,8 @@ syn keyword cAnsiName   PRIdFAST64 PRIiMAX PRIoPTR PRIx8
 syn keyword cAnsiName   PRIdMAX PRIiPTR PRIu8 PRIx16
 syn keyword cAnsiName   PRIdPTR PRIo8 PRIu16 PRIx32
 syn keyword cAnsiName   PRIi8 PRIo16 PRIu32 PRIx64
+syn keyword cAnsiName   PRIi8 PRIo16 PRIu32 PRIx64
+syn keyword cAnsiName   PRIuZ PRIiZ
 
 syn keyword cAnsiName   PRIxLEAST8 SCNd8 SCNiFAST32 SCNuLEAST32
 syn keyword cAnsiName   PRIxLEAST16 SCNd16 SCNiFAST64 SCNuLEAST64

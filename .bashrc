@@ -12,14 +12,14 @@ color_prompt="yes"
 #shopt -s histappend
 shopt -s checkwinsize
 
-# Import all bash-completions
-if [[ -r /usr/share/bash-completion/bash_completion ]] ; then
-    source  /usr/share/bash-completion/bash_completion
-fi
-
-if [[ -r /etc/bash_completion ]] ; then
-    source /etc/bash_completion
-fi
+# # Import all bash-completions
+# if [[ -r /usr/share/bash-completion/bash_completion ]] ; then
+#     source  /usr/share/bash-completion/bash_completion
+# fi
+# 
+# if [[ -r /etc/bash_completion ]] ; then
+#     source /etc/bash_completion
+# fi
 
 function __git_ps1_ ()
 {
@@ -46,10 +46,10 @@ function __make_flags()
     END="\[$(tput sgr0)\]"
 
     local f
-    [[ ! -z ${SSH_CLIENT%% *} ]]  && f="${f}${ORANGE}s"
-    [[ ! -z $VIMRUNTIME ]]        && f="${f}${PURPLE}v"
-    [[ ! -z $STY        ]]        && f="${f}${GREEN}n"
-    [[ ! -z $TMUX       ]]        && f="${f}${BLUE}t"
+    [[ -n ${SSH_CLIENT%% *} ]]  && f="${f}${ORANGE}s"
+    [[ -n $VIMRUNTIME ]]        && f="${f}${PURPLE}v"
+    [[ -n $STY        ]]        && f="${f}${GREEN}n"
+    [[ -n $TMUX       ]]        && f="${f}${BLUE}t"
 
     if [[ ! -z $f ]] ; then
         printf "[%b]" "${f}${END}"
@@ -123,6 +123,9 @@ alias fh="find . -iname"                # find here
 alias size_here="du -d 1 -hc | sort -h" # finds the size of the current directory
 alias atree="tree --charset=ASCII"      # tree with print friendly chars
 alias open="xdg-open"                   # OSX-like open... breaks OSX obviously
+alias ipa="ip -br -c a"                 # shows IP address configurations nicely
+alias ipl="ip -br -c l"                 # shows IP links configurations nicely
+alias ipr="ip -br -c r"                 # shows IP routes configurations nicely
 
 unset __make_flags
 unset __root_prompt

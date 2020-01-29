@@ -11,9 +11,16 @@
 
 # Fix QT Apps
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # Background
 xsetroot -solid grey31
+
+# fonts
+xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/artwiz-fonts
+xset fp rehash
 
 # Screen lock
 xautolock -time 5 -locker slock &
@@ -37,13 +44,14 @@ then
     wmname LG3D
 fi
 
-[[ -f ~/.nvidia-settings-rc ]] && nvidia-settings -l &
-
 # Xresources
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # For gnome services
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# dunst
+dunst &
 
 # dzen2
 DZEN="$HOME/code/scripts/$(hostname)/dzen.sh"
@@ -52,8 +60,6 @@ if which $DZEN &>/dev/null;
 then
     $(sleep 2 ; bash $DZEN) &
 fi
-
-dunst &
 
 # DWM
 while true;

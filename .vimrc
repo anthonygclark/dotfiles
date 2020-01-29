@@ -23,7 +23,7 @@ set splitbelow splitright             " Put new windows below and right by defau
 set autoindent smartindent            " Toggle Auto-indent and Smart-indent.
 set tabstop=4 shiftwidth=4 expandtab  " Spaces for tabs, indentation, and avoid real tabs
 set nowrap                            " No wrapping of lines
-set clipboard=unnamed                 " Yank and copy to X clipboard (maybe)
+set clipboard=unnamedplus             " Yank and copy to X clipboard (maybe)
 set laststatus=2                      " Always show the status line
 set cmdheight=1                       " Height of command line
 set ww=b,s,h,l,<,>,[,]                " Whichwrap -- left/right keys can traverse up/down
@@ -33,8 +33,8 @@ set stal=4                            " Show tab line
 set formatoptions+=r                  " Adds auto-comment fuctionality (see help :fo)
 set listchars+=tab:>-                 " Hidden character prefixes
 set listchars+=trail:-                " ^
-set switchbuf=newtab                  " Use open buffer for switching
 set listchars+=precedes:<,extends:<   " Show when there is text off screen
+set switchbuf=newtab                  " Use open buffer for switching
 set printencoding={utf-8}             " For hardcopies
 set printheader=-%N-\ %t              " Sets print header to `-Page- title`
 set printoptions+=number:y            " Prints numbers
@@ -68,7 +68,7 @@ set tagbsearch
 
 " Close Scatch/preview buff where not focused
 " ----------------------------------------------
-"  {{{
+" {{{
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 "}}}
@@ -84,22 +84,21 @@ runtime ftplugin/man.vim
 " Plugin Stuff
 " -----------------------------------------------
 "{{{
-"  Vundle
+" Vim Plug
 filetype plugin indent off
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
+call plug#begin('~/.vim/plugged')
+" 
 " External
-Plugin 'gmarik/Vundle.vim'
-Plugin 'https://github.com/vim-utils/vim-man'
-Plugin 'scrooloose/nerdtree'
+Plug 'vim-utils/vim-man'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'milkypostman/vim-togglelist'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'majutsushi/tagbar'
+Plug 'godlygeek/Tabular'
 
-" Internal
-Plugin 'tagbar'
-Plugin 'DoxygenToolkit.vim'
-Plugin 'fugitive.vim'
-Plugin 'Tabular'
-Plugin 'glsl.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :Dox<CR>
@@ -125,7 +124,7 @@ map <leader>t{ :Tabularize /{<CR>
 
 map <leader>ntt :NERDTreeToggle<CR>
 
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 "}}}
 
@@ -133,21 +132,33 @@ filetype plugin indent on
 " File Specific Settings
 "-----------------------------------------------
 "{{{
+autocmd FileType markdown setlocal linebreak wrap
+autocmd FileType text setlocal linebreak wrap
 autocmd FileType make setlocal noet
 autocmd FileType c,h set omnifunc=ccomplete#Complete
 autocmd FileType cpp set path+=/usr/include/c++/*
 "autocmd FileType python Plugin 'Pydoc.vim'
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python set makeprg=python2\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType python set tabstop=4 shiftwidth=4 noet
+" autocmd FileType python set tabstop=4 shiftwidth=4 noet
+autocmd FileType python set tabstop=4 shiftwidth=4
 autocmd FileType sh set makeprg=shellcheck\ -f\ gcc\ -e\ SC2034\ %
+" Use vim's built in man viewer
+autocmd FileType c,cpp,h nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
+
+" Open only quickfix window at the bottom
+augroup vimrc_qf
+    autocmd!
+    "autocmd! FileType qf if !s:is_loclist() | wincmd J | endif
+    autocmd! FileType qf wincmd J
+augroup END
 
 " Ignore boost headers since they take ages to search through
 set include=^\\s*#\\s*include\ \\(<boost/\\)\\@!
 
 "set cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,ps,ts,+s,c3,C0,/0,(0,us,U0,u0,w0,W1s,k0,m0,j0,J0,)20,*70,#0
-set cinoptions=:0,g0,t0,(0,u0
+set cinoptions=:0,g0,t0,(0,u0,j1
 
 augroup Binary
     au!
@@ -191,7 +202,7 @@ set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ %p%%:\ [%l,%L][%c]
 "}}}
 
 
-" Conditionals
+" Environment
 "-----------------------------------------------
 "{{{
 " syntax sync
@@ -211,9 +222,12 @@ if has('gui_running')
     " set bg=dark
     " colorscheme hybrid
     " colorscheme molokai
-    colorscheme ac
+    " colorscheme ac
+    colorscheme xcode
 
-    autocmd FileType c,cpp,h nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
+    " GVIM doesn't have a proper `sh` mode, so we 
+    " just remap to `term`
+    cabbrev sh term
 
 else
     set term=$TERM " Give vim your term settings
@@ -302,6 +316,14 @@ cmap w!! w !sudo tee % >/dev/null
 "---------------------------------------------------
 "{{{
 
+
+" Check if current window is a location list
+function! s:is_loclist(...) abort
+    let winnr = a:0 ? a:1 : winnr()
+    let l:info = filter(getwininfo(), {_,v -> v.winnr == winnr})[0]
+    return l:info.quickfix && l:info.loclist
+endfunction
+
 " Not really a function, but tells QuickFix functions to open the cwindow
 " after being called automatically.
 augroup myvimrc
@@ -340,26 +362,6 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-
-" toggles the quickfix window.
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-    if exists("g:qfix_win") && a:forced == 0
-        cclose
-    else
-        execute "copen "
-    endif
-endfunction
-
-" used to track the quickfix window
-augroup QFixToggle
-    autocmd!
-    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
-    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
-augroup END
-
-" Toggle the quick fix window
-nnoremap <silent> <F7> :QFix<CR>
 "}}}
 
 

@@ -109,3 +109,6 @@ hi link schemeFunc      Statement
 hi TabLine      guifg=#9e9e9e   guibg=#1c1c1c   gui=NONE        cterm=NONE        ctermfg=247   ctermbg=234
 hi TabLineFill  guifg=#7f7f7f   guibg=#1c1c1c   gui=NONE        cterm=NONE        ctermfg=8     ctermbg=234
 hi TabLineSel   guifg=#FFFFFF   gui=BOLD                        cterm=BOLD        ctermfg=231
+
+" hi StatusLineTerm   guifg=#FFFFFF   guibg=#3a3a3a   gui=NONE        cterm=NONE        ctermfg=231   ctermbg=237
+" hi StatusLineTermNC guifg=#808080   guibg=#3a3a3a   gui=NONE        cterm=NONE        ctermfg=244   ctermbg=237

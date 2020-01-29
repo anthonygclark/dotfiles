@@ -1,7 +1,7 @@
 # vim: set noet
 [user]
     name  = Anthony Clark
-    email = clark.anthony.g@gmail.com
+    
 [color]
     ui = auto
 [color "branch"]

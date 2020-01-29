@@ -133,7 +133,7 @@ if &t_Co > 255
       hi Normal                   ctermbg=234
       hi CursorLine               ctermbg=235   cterm=none
    else
-      hi Normal       ctermfg=252 ctermbg=233
+      hi Normal       ctermfg=255 ctermbg=235
       hi CursorLine               ctermbg=234   cterm=none
    endif
    hi Boolean         ctermfg=135
@@ -206,8 +206,8 @@ if &t_Co > 255
    hi Underlined      ctermfg=244               cterm=underline
 
    hi VertSplit       ctermfg=244 ctermbg=232   cterm=bold
-   hi VisualNOS                   ctermbg=238
-   hi Visual                      ctermbg=235
+   hi VisualNOS       ctermfg=231 ctermbg=24
+   hi Visual          ctermfg=248 ctermbg=238
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
    hi WildMenu        ctermfg=81  ctermbg=16
 
