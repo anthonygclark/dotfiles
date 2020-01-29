@@ -2,7 +2,7 @@
 # Anthony Clark
 #
 # Installs dotfiles via naive copying.
-# Vundle is cloned into .vim, this needs to change.
+# It's pretty nasty so good luck!
 
 # Change into the script dir
 readonly script_dir="$(dirname "$(readlink -m "$0")")"
@@ -24,7 +24,6 @@ readonly out="dotfiles_backup_$_date.tar"
 readonly dotfiles=($(find . -type d '(' -name .svn -o -name .git ')' -prune -o \
     ! -iname 'install.sh' \
     ! -iname '*.patch' \
-    ! -iname '.git*' \
     ! -iname 'README'))
 
 _dirs=()
@@ -98,7 +97,6 @@ done
 
 echo "[+] New dotfiles installed"
 
-
 # The generic option removed my user info from
 # gitconfig and remove my color prefs from .vimrc
 # and probably more
@@ -115,9 +113,11 @@ then
     fi
 fi
 
+# Install vim plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || fail "Failed to download vim-plug"
 
+# Install user plugins
 vim +PlugInstall +qall
 
 echo "Done."
